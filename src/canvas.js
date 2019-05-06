@@ -13,6 +13,10 @@ const mouse = {
 
 const colors = ['#2185C5', '#7ECEFD', '#FFF6E5', '#FF7F66']
 
+var gravity = 1;
+var frictionY = 0.80;
+var frictionX = 0.20;
+
 // Event Listeners
 addEventListener('mousemove', event => {
     mouse.x = event.clientX
@@ -27,9 +31,11 @@ addEventListener('resize', () => {
 })
 
 // Objects
-function Object(x, y, radius, color) {
+function Ball(x, y, dx, dy,radius, color) {
     this.x = x
     this.y = y
+    this.dx = dx
+    this.dy = dy
     this.radius = radius
     this.color = color
 }
@@ -43,16 +49,39 @@ Object.prototype.draw = function() {
 }
 
 Object.prototype.update = function() {
+
+    if(this.y + this.radius > canvas.height)
+    {
+        this.dy = -this.dy * frictionY
+    } else {
+        this.dy += gravity
+    }
+
+    if(this.x + this.radius > canvas.width || this.x - this.radius <= 0)
+    {
+        this.dx = - this.dx  * frictionX
+    }
+
+    this.x += this.dx
+    this.y += this.dy
     this.draw()
 }
 
 // Implementation
-let objects
-function init() {
-    objects = []
 
-    for (let i = 0; i < 400; i++) {
-        // objects.push()
+
+var ball;
+var balls = []
+
+function init() {
+    for(var i = 0; i < 500; i++){
+        var x = utils.randomIntFromRange(0, canvas.width)
+        var y = utils.randomIntFromRange(0, canvas.height)
+        var dx = utils.randomIntFromRange(-2, 2)
+        var dy = utils.randomIntFromRange(-2, 2)
+        var size = utils.randomIntFromRange(0, 30)
+
+        balls.push(new Ball(x, y, dx, dy, size, utils.randomColor(colors) ))
     }
 }
 
@@ -61,10 +90,9 @@ function animate() {
     requestAnimationFrame(animate)
     c.clearRect(0, 0, canvas.width, canvas.height)
 
-    c.fillText('HTML CANVAS BOILERPLATE '+mouse.x + '-'+ mouse.y, mouse.x, mouse.y)
-    // objects.forEach(object => {
-    //  object.update()
-    // })
+    for(var i=0; i < balls.length; i++) {
+        balls[i].update();
+    }
 }
 
 init()

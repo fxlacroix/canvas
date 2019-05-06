@@ -115,6 +115,10 @@ var mouse = {
 
 var colors = ['#2185C5', '#7ECEFD', '#FFF6E5', '#FF7F66'];
 
+var gravity = 1;
+var frictionY = 0.80;
+var frictionX = 0.20;
+
 // Event Listeners
 addEventListener('mousemove', function (event) {
     mouse.x = event.clientX;
@@ -129,9 +133,11 @@ addEventListener('resize', function () {
 });
 
 // Objects
-function Object(x, y, radius, color) {
+function Ball(x, y, dx, dy, radius, color) {
     this.x = x;
     this.y = y;
+    this.dx = dx;
+    this.dy = dy;
     this.radius = radius;
     this.color = color;
 }
@@ -145,16 +151,37 @@ Object.prototype.draw = function () {
 };
 
 Object.prototype.update = function () {
+
+    if (this.y + this.radius > canvas.height) {
+        this.dy = -this.dy * frictionY;
+    } else {
+        this.dy += gravity;
+    }
+
+    if (this.x + this.radius > canvas.width || this.x - this.radius <= 0) {
+        this.dx = -this.dx * frictionX;
+    }
+
+    this.x += this.dx;
+    this.y += this.dy;
     this.draw();
 };
 
 // Implementation
-var objects = void 0;
-function init() {
-    objects = [];
 
-    for (var i = 0; i < 400; i++) {
-        // objects.push()
+
+var ball;
+var balls = [];
+
+function init() {
+    for (var i = 0; i < 500; i++) {
+        var x = _utils2.default.randomIntFromRange(0, canvas.width);
+        var y = _utils2.default.randomIntFromRange(0, canvas.height);
+        var dx = _utils2.default.randomIntFromRange(-2, 2);
+        var dy = _utils2.default.randomIntFromRange(-2, 2);
+        var size = _utils2.default.randomIntFromRange(0, 30);
+
+        balls.push(new Ball(x, y, dx, dy, size, _utils2.default.randomColor(colors)));
     }
 }
 
@@ -163,10 +190,9 @@ function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
 
-    c.fillText('HTML CANVAS BOILERPLATE ' + mouse.x + '-' + mouse.y, mouse.x, mouse.y);
-    // objects.forEach(object => {
-    //  object.update()
-    // })
+    for (var i = 0; i < balls.length; i++) {
+        balls[i].update();
+    }
 }
 
 init();
