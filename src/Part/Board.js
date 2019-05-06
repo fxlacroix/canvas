@@ -1,36 +1,29 @@
+// JS Libs
+import BaseCanvas from './Component/BaseCanvas'
+import BallFactory from './Ball'
+
 /**
  * Board Manager
  */
-class Board {
+class Board extends BaseCanvas {
 
-    constructor(){
+    constructor(nCount){
+        super()
+        this.ballManager = new BallFactory.BallManager(nCount);
+    }
 
-        // canvas
-        this.canvas = document.querySelector('canvas')
-        this.canvas.width = innerWidth
-        this.canvas.height = innerHeight
+    init() {
 
-        // context
-        this.c = this.canvas.getContext('2d')
-
-        // mouse
-        this.mouse = {
-            x: innerWidth / 2,
-            y: innerHeight / 2
-        }
-
-        this.colors = ['#2185C5', '#7ECEFD', '#FFF6E5', '#FF7F66']
+        this.animate();
     }
 
     animate() {
-
         requestAnimationFrame(this.animate.bind(this))
         this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-        this.c.fillText('HTML CANVAS BOILERPLATE '+ this.mouse.x + '-'+ this.mouse.y, this.mouse.x, this.mouse.y)
-        // objects.forEach(object => {
-        //  object.update()
-        // })
+        for(var i=0; i < this.ballManager.heap.length; i++) {
+            this.ballManager.heap[i].update();
+        }
     }
 }
 

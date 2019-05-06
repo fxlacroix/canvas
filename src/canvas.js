@@ -1,24 +1,25 @@
 //CSS
 import style from './canvas.css'
 
-// JS Libs
-import utils from './utils'
-
 // Logical Part
 import Board from './Part/Board'
 
-let board = new Board();
+
+// mouse definition
+var mouse = {x: innerWidth / 2, y: innerHeight / 2}
+
 
 // Board Event Listeners
 addEventListener('mousemove', event => {
-    board.mouse.x = event.clientX
-    board.mouse.y = event.clientY
+    mouse.x = event.clientX
+    mouse.y = event.clientY
 })
 
 addEventListener('resize', () => {
-    board.canvas.width = innerWidth
-    board.canvas.height = innerHeight
+    canvas.width = innerWidth
+    canvas.height = innerHeight
 
 })
 
-board.animate();
+var board = new Board(200);
+board.init();
