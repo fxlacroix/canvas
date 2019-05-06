@@ -61,7 +61,7 @@ function animate() {
     requestAnimationFrame(animate)
     c.clearRect(0, 0, canvas.width, canvas.height)
 
-    c.fillText('HTML CANVAS BOILERPLATE '+mouse.x + '-'+ mouse.y, mouse.x, mouse.y)
+    c.fillText('HTML CANVAS BOILERPLATE ', mouse.x, mouse.y)
     // objects.forEach(object => {
     //  object.update()
     // })
