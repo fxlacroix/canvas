@@ -1,18 +1,22 @@
 import Multi from "./Structure/Multi";
 import BaseCanvas from './Component/BaseCanvas'
 import Mouse from './Component/Mouse'
+import Perso from './Perso'
 
 /**
  * Board Manager
  */
 class Board extends Multi.inherit(BaseCanvas, Mouse) {
 
-    constructor(nCount){
+    constructor(){
         super()
     }
 
     init() {
-        this.animate()
+
+        this.perso= new Perso()
+        perso.init()
+
         return this
     }
 
@@ -21,5 +25,6 @@ class Board extends Multi.inherit(BaseCanvas, Mouse) {
         this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
     }
 }
+
 
 module.exports = Board
