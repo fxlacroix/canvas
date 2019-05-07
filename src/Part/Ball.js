@@ -1,6 +1,7 @@
 // JS Libs
 import BaseCanvas from './Component/BaseCanvas'
-import Gravity from './Component/Gravity.js'
+import Gravity from './Component/Gravity'
+import Multi from './Structure/Multi'
 
 // JS Libs
 import utils from './Utils'
@@ -14,7 +15,7 @@ class BallManager extends BaseCanvas{
         // colors
         this.colors = ['#2185C5', '#7ECEFD', '#FFF6E5', '#FF7F66']
         this.heap = [];
-        for(var i = 0; i < nCount; i++) {
+        for(let i = 0; i < nCount; i++) {
 
             // ball props
             let x       = utils.randomIntFromRange(0, this.canvas.width)
@@ -29,7 +30,7 @@ class BallManager extends BaseCanvas{
     }
 }
 
-class Ball extends BaseCanvas{
+class Ball extends Multi.inherit(BaseCanvas, Gravity){
 
     constructor(x, y, dx, dy, radius, color) {
 
@@ -41,9 +42,6 @@ class Ball extends BaseCanvas{
         this.dy     = dy
         this.radius = radius
         this.color  = color
-
-        // gravity module
-        this.gravity = new Gravity();
     }
 
     draw() {
@@ -58,14 +56,14 @@ class Ball extends BaseCanvas{
 
         if(this.y + this.radius > this.canvas.height)
         {
-            this.dy = -this.dy * this.gravity.frictionY
+            this.dy = -this.dy * this.frictionY
         } else {
-            this.dy += this.gravity.gravity
+            this.dy += this.gravity
         }
 
         if(this.x + this.radius > this.canvas.width || this.x - this.radius <= 0)
         {
-            this.dx = - this.dx  * this.gravity.frictionX
+            this.dx = - this.dx  * this.frictionX
         }
 
         this.x += this.dx

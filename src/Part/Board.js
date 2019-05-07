@@ -1,11 +1,12 @@
-// JS Libs
+import Multi from "./Structure/Multi";
 import BaseCanvas from './Component/BaseCanvas'
+import Mouse from './Component/Mouse'
 import BallFactory from './Ball'
 
 /**
  * Board Manager
  */
-class Board extends BaseCanvas {
+class Board extends Multi.inherit(BaseCanvas, Mouse) {
 
     constructor(nCount){
         super()

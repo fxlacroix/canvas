@@ -1,3 +1,6 @@
+/**
+ * Base canvas for convenient
+ */
 class BaseCanvas{
 
     constructor() {
