@@ -6,16 +6,16 @@ class Multi
         class classes {
 
             // The base classes
-            get base() { return _bases; }
+            get base() { return _bases }
 
             constructor(..._args)
             {
-                var index = 0;
+                var index = 0
 
                 for (let b of this.base)
                 {
-                    let obj = new b(_args[index++]);
-                    Multi.copy(this, obj);
+                    let obj = new b(_args[index++])
+                    Multi.copy(this, obj)
                 }
             }
 
@@ -24,8 +24,8 @@ class Multi
         // Copy over properties and methods
         for (let base of _bases)
         {
-            Multi.copy(classes, base);
-            Multi.copy(classes.prototype, base.prototype);
+            Multi.copy(classes, base)
+            Multi.copy(classes.prototype, base.prototype)
         }
 
         return classes;
@@ -38,8 +38,8 @@ class Multi
         {
             if (key !== "constructor" && key !== "prototype" && key !== "name")
             {
-                let desc = Object.getOwnPropertyDescriptor(_source, key);
-                Object.defineProperty(_target, key, desc);
+                let desc = Object.getOwnPropertyDescriptor(_source, key)
+                Object.defineProperty(_target, key, desc)
             }
         }
     }

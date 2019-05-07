@@ -12,7 +12,8 @@ class Board extends Multi.inherit(BaseCanvas, Mouse) {
     }
 
     init() {
-        this.animate();
+        this.animate()
+        return this
     }
 
     animate() {
@@ -21,4 +22,4 @@ class Board extends Multi.inherit(BaseCanvas, Mouse) {
     }
 }
 
-module.exports = Board;
+module.exports = Board
