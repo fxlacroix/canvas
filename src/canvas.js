@@ -9,6 +9,6 @@ addEventListener('resize', (event) => {
 })
 
 addEventListener('mousemove', function(event) {
-    board.x = event.clientX
-    board.y = event.clientY
+    board.mouse.x = event.clientX
+    board.mouse.y = event.clientY
 })
