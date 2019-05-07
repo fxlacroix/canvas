@@ -1,7 +1,7 @@
 // JS Libs
+import Multi from './Structure/Multi'
 import BaseCanvas from './Component/BaseCanvas'
 import Gravity from './Component/Gravity'
-import Multi from './Structure/Multi'
 
 // JS Libs
 import utils from './Utils'
