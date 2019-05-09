@@ -11,8 +11,6 @@ class Perso extends Multi.inherit(BaseCanvas, Mouse, Luigi) {
         this.x                  = 0
         this.y                  = 0
         this.loopIndex          = 0
-        this.frameCount         = 0
-        this.direction          = this.sprite.facingDown
         this.img                = new Image()
         this.keyPresses         = []
     }
@@ -32,32 +30,30 @@ class Perso extends Multi.inherit(BaseCanvas, Mouse, Luigi) {
             this.y += deltaY;
         }
 
-        this.direction = direction;
+        this.sprite.direction = direction;
     }
 
     animate() {
 
         this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-        let hasMoved;
-
         if (this.keyPresses.ArrowUp) {
             this.update(0, -this.sprite.movementSpeed, this.sprite.facingUp)
-            hasMoved = true
+            this.sprite.hasMoved = true
         } else if (this.keyPresses.ArrowDown) {
             this.update(0, this.sprite.movementSpeed, this.sprite.facingDown)
-            hasMoved = true
+            this.sprite.hasMoved = true
         }
 
         if (this.keyPresses.ArrowLeft) {
             this.update(-this.sprite.movementSpeed, 0, this.sprite.facingLeft)
-            hasMoved = true
+            this.sprite.hasMoved = true
         } else if (this.keyPresses.ArrowRight) {
             this.update(this.sprite.movementSpeed, 0, this.sprite.facingRight)
-            hasMoved = true
+            this.sprite.hasMoved = true
         }
 
-        if (hasMoved) {
+        if (this.sprite.hasMoved) {
             this.sprite.frameCount++
             if (this.sprite.frameCount >= this.sprite.frameLimit) {
                 this.sprite.frameCount = 0
@@ -68,13 +64,14 @@ class Perso extends Multi.inherit(BaseCanvas, Mouse, Luigi) {
             }
         }
 
-        if (!hasMoved) {
-            this.loopIndex = 0
+        if (!this.sprite.hasMoved) {
+            this.sprite.loopIndex = 0
+            this.sprite.direction = 0
         } else {
-            hasMoved = false
+            this.sprite.hasMoved = false
         }
 
-        this.drawFrame(this.sprite.cycleLoop[this.sprite.loopIndex], this.direction, this.x, this.y)
+        this.drawFrame(this.sprite.cycleLoop[this.sprite.loopIndex], this.sprite.direction, this.x, this.y)
 
         window.requestAnimationFrame(this.animate.bind(this))
     }
