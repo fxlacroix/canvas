@@ -10,19 +10,7 @@ class Board extends Multi.inherit(BaseCanvas, Mouse) {
 
     constructor(){
         super()
-    }
-
-    init() {
-
-        this.perso= new Perso()
-        perso.init()
-
-        return this
-    }
-
-    animate() {
-        requestAnimationFrame(this.animate.bind(this))
-        this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        this.perso = new Perso().init()
     }
 }
 

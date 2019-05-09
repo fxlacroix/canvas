@@ -1,7 +1,9 @@
 //GLOBAL STRUCTURE
+import Style from './canvas.css'
+//GLOBAL STRUCTURE
 import Board from './Part/Board'
 // mouse definition
-var board = new Board().init()
+var board = new Board()
 
 addEventListener('resize', (event) => {
     board.canvas.width = innerWidth
@@ -14,9 +16,9 @@ addEventListener('mousemove', function(event) {
 })
 
 addEventListener('keydown', (event) => {
-    keyPresses[event.key] = true;
+    board.perso.keyPresses[event.key] = true;
 })
 
 addEventListener('keyup', (event) => {
-    keyPresses[event.key] = false;
+    board.perso.keyPresses[event.key] = false;
 })
