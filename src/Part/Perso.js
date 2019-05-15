@@ -3,9 +3,9 @@ import BaseCanvas from './Component/BaseCanvas'
 import Mouse from './Component/Mouse'
 import Link from './Component/Sprite/Link'
 
-class Perso extends Multi.inherit(BaseCanvas, Mouse, Link) {
+class Perso extends Multi.inherit(BaseCanvas, Mouse) {
 
-    constructor() {
+    constructor(Sprite) {
         super()
 
         this.x                  = 0
@@ -13,6 +13,7 @@ class Perso extends Multi.inherit(BaseCanvas, Mouse, Link) {
         this.loopIndex          = 0
         this.img                = new Image()
         this.keyPresses         = []
+        this.sprite             = Sprite
     }
 
     init() {

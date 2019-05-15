@@ -1,28 +1,25 @@
-class Link {
+class Luigi {
 
     constructor() {
 
-        this.sprite                 = {}
-        this.sprite.scale           = 2
-        this.sprite.width           = 16
-        this.sprite.height          = 18
-
-        this.sprite.cycleLoop       = [0, 1, 2, 3, 4]
-        this.sprite.facingLeft      = 0
-        this.sprite.facingRight     = 1
-        this.sprite.facingUp        = 2
-        this.sprite.facingDown      = 3
-
-        this.sprite.frameLimit      = 20
-        this.sprite.frameCount      = 0
-        this.sprite.loopIndex       = 0
-        this.sprite.movementSpeed   = 2
-        this.sprite.hasMoved        = false
-        this.sprite.direction       = this.sprite.facingDown
-        this.sprite.scaledWidth     = this.sprite.scale * this.sprite.width
-        this.sprite.scaledHeight    = this.sprite.scale * this.sprite.height
-        this.sprite.src             = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png'
+        this.scale           = 2
+        this.width           = 16
+        this.height          = 18
+        this.cycleLoop       = [0, 1, 0, 2]
+        this.facingDown      = 0
+        this.facingUp        = 1
+        this.facingLeft      = 2
+        this.facingRight     = 3
+        this.frameLimit      = 12
+        this.frameCount      = 0
+        this.loopIndex       = 0
+        this.movementSpeed   = 2
+        this.hasMoved        = false
+        this.direction       = this.facingDown
+        this.scaledWidth     = this.scale * this.width
+        this.scaledHeight    = this.scale * this.height
+        this.src             = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png'
     }
 }
 
-module.exports = Link
+module.exports = Luigi

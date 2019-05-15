@@ -1,28 +1,28 @@
-class Luigi {
+class Link {
 
     constructor() {
 
-        this.sprite                 = {}
-        this.sprite.scale           = 1
-        this.sprite.width           = 90
-        this.sprite.height          = 90
-        this.sprite.cycleLoop       = [0, 1, 0, 2]
+        this.scale           = 1
+        this.width           = 90
+        this.height          = 90
+        this.cycleLoop       = [0, 1, 2, 3, 4]
 
-        this.sprite.facingDown      = 3
-        this.sprite.facingUp        = 2
-        this.sprite.facingLeft      = 0
-        this.sprite.facingRight     = 1
+        this.facingDown      = 3
+        this.facingUp        = 2
+        this.facingLeft      = 0
+        this.facingRight     = 1
 
-        this.sprite.frameLimit      = 12
-        this.sprite.frameCount      = 0
-        this.sprite.loopIndex       = 0
-        this.sprite.movementSpeed   = 2
-        this.sprite.hasMoved        = false
-        this.sprite.direction       = this.sprite.facingDown
-        this.sprite.scaledWidth     = this.sprite.scale * this.sprite.width
-        this.sprite.scaledHeight    = this.sprite.scale * this.sprite.height
-        this.sprite.src             = 'https://www.info-d-74.com/wp-content/uploads/2015/02/sprite.png'
+        this.frameLimit      = 12
+        this.frameCount      = 0
+        this.loopIndex       = 0
+        this.movementSpeed   = 3
+        this.hasMoved        = false
+        this.scaledWidth     = this.scale * this.width
+        this.scaledHeight    = this.scale * this.height
+        this.src             = 'https://www.info-d-74.com/wp-content/uploads/2015/02/sprite.png'
+
+        this.direction       = this.facingDown
     }
 }
 
-module.exports = Luigi
+module.exports = Link
