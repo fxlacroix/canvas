@@ -2,6 +2,9 @@ class Luigi {
 
     constructor() {
 
+        this.x               = 0
+        this.y               = 0
+
         this.scale           = 2
         this.width           = 16
         this.height          = 18

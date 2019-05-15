@@ -16,9 +16,9 @@ addEventListener('mousemove', function(event) {
 })
 
 addEventListener('keydown', (event) => {
-    board.perso.keyPresses[event.key] = true;
+    board.keyPresses[event.key] = true;
 })
 
 addEventListener('keyup', (event) => {
-    board.perso.keyPresses[event.key] = false;
+    board.keyPresses[event.key] = false;
 })

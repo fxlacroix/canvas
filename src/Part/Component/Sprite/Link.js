@@ -2,6 +2,9 @@ class Link {
 
     constructor() {
 
+        this.x               = 100
+        this.y               = 0
+
         this.scale           = 1
         this.width           = 90
         this.height          = 90
