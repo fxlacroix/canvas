@@ -2,7 +2,6 @@ import Multi from "./Structure/Multi";
 import BaseCanvas from './Component/BaseCanvas'
 import Mouse from './Component/Mouse'
 import Perso from './Perso'
-import Luigi from './Component/Sprite/Luigi'
 import Link from './Component/Sprite/Link'
 
 /**
@@ -12,7 +11,7 @@ class Board extends Multi.inherit(BaseCanvas, Mouse) {
 
     constructor(){
         super()
-        this.perso = new Perso(new Luigi()).init()
+        this.perso = new Perso(new Link()).init()
     }
 }
 

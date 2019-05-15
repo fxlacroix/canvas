@@ -2,15 +2,15 @@ class Link {
 
     constructor() {
 
-        this.scale           = 1
+        this.scale           = 0.75
         this.width           = 90
         this.height          = 90
         this.cycleLoop       = [0, 1, 2, 3, 4]
 
-        this.facingDown      = 3
-        this.facingUp        = 2
         this.facingLeft      = 0
         this.facingRight     = 1
+        this.facingUp        = 2
+        this.facingDown      = 3
 
         this.frameLimit      = 12
         this.frameCount      = 0
