@@ -1,9 +1,9 @@
 import Multi from './Structure/Multi'
 import BaseCanvas from './Component/BaseCanvas'
 import Mouse from './Component/Mouse'
-import Luigi from './Component/Sprite/Luigi'
+import Link from './Component/Sprite/Link'
 
-class Perso extends Multi.inherit(BaseCanvas, Mouse, Luigi) {
+class Perso extends Multi.inherit(BaseCanvas, Mouse, Link) {
 
     constructor() {
         super()
