@@ -2,8 +2,9 @@ import Multi from './Structure/Multi'
 import BaseCanvas from './Component/BaseCanvas'
 import Mouse from './Component/Mouse'
 import Luigi from './Component/Sprite/Luigi'
+import Boots from './Component/Goodie/Boots'
 
-class Perso extends Multi.inherit(BaseCanvas, Mouse, Luigi) {
+class Perso extends Multi.inherit(BaseCanvas, Mouse, Luigi, Boots) {
 
     constructor() {
         super()
@@ -71,11 +72,12 @@ class Perso extends Multi.inherit(BaseCanvas, Mouse, Luigi) {
             this.sprite.hasMoved = false
         }
 
+        console.log(this.boots.x, this.boots.y, this.x, this.y, this.sprite)
+
+        this.c.drawImage(this.boots.image, this.boots.x, this.boots.y)
         this.drawFrame(this.sprite.cycleLoop[this.sprite.loopIndex], this.sprite.direction, this.x, this.y)
 
-        window.requestAnimationFrame(this.animate.bind(this))
     }
-
 
     drawFrame(frameX, frameY, canvasX, canvasY) {
 
