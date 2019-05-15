@@ -19,6 +19,14 @@ class Luigi {
         this.scaledWidth     = this.scale * this.width
         this.scaledHeight    = this.scale * this.height
         this.src             = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png'
+
+
+        // how to extract game control
+        this.keyLeft         = 'ArrowLeft'
+        this.keyRight        = 'ArrowRight'
+        this.keyUp           = 'ArrowUp'
+        this.keyDown         = 'ArrowDown'
+
     }
 }
 

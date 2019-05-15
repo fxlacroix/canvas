@@ -2,7 +2,7 @@ class Link {
 
     constructor() {
 
-        this.scale           = 0.75
+        this.scale           = 1
         this.width           = 90
         this.height          = 90
         this.cycleLoop       = [0, 1, 2, 3, 4]
@@ -22,6 +22,14 @@ class Link {
         this.src             = 'https://www.info-d-74.com/wp-content/uploads/2015/02/sprite.png'
 
         this.direction       = this.facingDown
+
+        // how to extract game control
+        this.keyLeft         = 'q'
+        this.keyRight        = 'd'
+        this.keyUp           = 'z'
+        this.keyDown         = 'x'
+
+
     }
 }
 

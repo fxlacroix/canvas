@@ -38,18 +38,18 @@ class Perso extends Multi.inherit(BaseCanvas, Mouse) {
 
         this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-        if (this.keyPresses.ArrowUp) {
+        if (this['keyPresses'][this.sprite.keyUp]) {
             this.update(0, -this.sprite.movementSpeed, this.sprite.facingUp)
             this.sprite.hasMoved = true
-        } else if (this.keyPresses.ArrowDown) {
+        } else if (this['keyPresses'][this.sprite.keyDown]) {
             this.update(0, this.sprite.movementSpeed, this.sprite.facingDown)
             this.sprite.hasMoved = true
         }
 
-        if (this.keyPresses.ArrowLeft) {
+        if (this['keyPresses'][this.sprite.keyLeft]) {
             this.update(-this.sprite.movementSpeed, 0, this.sprite.facingLeft)
             this.sprite.hasMoved = true
-        } else if (this.keyPresses.ArrowRight) {
+        } else if (this['keyPresses'][this.sprite.keyRight]) {
             this.update(this.sprite.movementSpeed, 0, this.sprite.facingRight)
             this.sprite.hasMoved = true
         }
@@ -67,7 +67,7 @@ class Perso extends Multi.inherit(BaseCanvas, Mouse) {
 
         if (!this.sprite.hasMoved) {
             this.sprite.loopIndex = 0
-            this.sprite.direction = 0
+            this.sprite.direction = 3
         } else {
             this.sprite.hasMoved = false
         }
