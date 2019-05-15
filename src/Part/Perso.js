@@ -11,11 +11,7 @@ class Perso extends Multi.inherit(BaseCanvas, Mouse) {
         this.loopIndex          = 0
         this.img                = new Image()
         this.sprite             = Sprite
-    }
-
-    init() {
         this.img.src = this.sprite.src
-        return this
     }
 
     update(deltaX, deltaY, direction) {

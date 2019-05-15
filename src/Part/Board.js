@@ -13,8 +13,8 @@ class Board extends Multi.inherit(BaseCanvas, Mouse) {
     constructor(){
         super()
         this.perso = []
-        this.perso[0]   = new Perso(new Link()).init()
-        this.perso[1]   = new Perso(new Luigi()).init()
+        this.perso[0]   = new Perso(new Link())
+        this.perso[1]   = new Perso(new Luigi())
         this.keyPresses = []
 
         this.animate()
