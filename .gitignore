@@ -1,4 +1,4 @@
 node_modules
 .ds_store
-.idea
-dist
+.idea/
+dist/
