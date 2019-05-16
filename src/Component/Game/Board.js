@@ -1,6 +1,7 @@
 import Multi from "../../Structure/Multi";
 import Canvas from '../Generic/Canvas'
 import Mouse from '../Generic/Mouse'
+import Pellet from '../Item/Pellet'
 
 /**
  * Board Manager
@@ -11,13 +12,13 @@ class Board extends Multi.inherit(Canvas, Mouse) {
         super()
         this.keyPresses = []
         this.persos     = Persos
+        this.pellet     = new Pellet()
     }
 
     animate() {
 
         this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-        //for(let perso in this.perso){
         var board  = this
         this.persos.forEach(function(perso){
 
@@ -58,9 +59,24 @@ class Board extends Multi.inherit(Canvas, Mouse) {
             }
 
             perso.drawFrame(sprite.cycleLoop[sprite.loopIndex], sprite.direction, sprite.x, sprite.y)
+            board.pellet.draw()
+
+            if(board.detectCollision(board.pellet, perso.sprite)){
+                board.pellet.update()
+            }
+
         })
 
         window.requestAnimationFrame(this.animate.bind(this))
+    }
+
+    detectCollision(item, sprite) {
+
+        if(sprite.x < item.x && (sprite.x + sprite.width) > item.x
+        && sprite.y < item.y && sprite.y + sprite.height > item.y){
+            return true
+        }
+        return false
     }
 
 }
