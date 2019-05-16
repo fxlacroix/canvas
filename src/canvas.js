@@ -1,5 +1,6 @@
 //GLOBAL STRUCTURE
-import Game from './Part/Game'
+import Style from './Style/canvas.css'
+import Game from './Component/Game/Game'
 // mouse definition
 var game = new Game()
 

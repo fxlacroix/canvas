@@ -1,6 +1,6 @@
-import Multi from "./Structure/Multi";
-import Canvas from './Component/Canvas'
-import Mouse from './Component/Mouse'
+import Multi from "../../Structure/Multi";
+import Canvas from '../Generic/Canvas'
+import Mouse from '../Generic/Mouse'
 
 /**
  * Board Manager

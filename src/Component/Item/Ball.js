@@ -1,10 +1,10 @@
 // JS Libs
-import Multi from './Structure/Multi'
-import Canvas from './Component/Canvas'
-import Gravity from './Component/Gravity'
+import Multi from '../../Structure/Multi'
+import Canvas from '../Generic/Canvas'
+import Gravity from '../Generic/Gravity'
 
 // JS Libs
-import utils from './Utils'
+import utils from '../../Helper/Utils'
 
 class BallManager extends Canvas{
 
