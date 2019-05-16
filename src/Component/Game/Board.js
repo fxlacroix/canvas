@@ -65,7 +65,7 @@ class Board extends Multi.inherit(Canvas, Mouse) {
 
                     let randomMoves = [sprite.keyUp, sprite.keyDown, sprite.keyLeft, sprite.keyRight]
                     var rand = randomMoves[Math.floor(Math.random() * randomMoves.length)];
-                    for (let i = 0; i < sprite.cycleLoop.length * 3; i++) {
+                    for (let i = 0; i < sprite.cycleLoop.length * 4; i++) {
                         sprite.keepWalking.push(rand)
                     }
                 }
