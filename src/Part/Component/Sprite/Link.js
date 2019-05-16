@@ -25,13 +25,19 @@ class Link {
         this.src             = 'https://www.info-d-74.com/wp-content/uploads/2015/02/sprite.png'
 
         this.direction       = this.facingDown
+        this.defaultDirection= this.facingDown
 
         // how to extract game control
-        this.keyLeft         = 'q'
-        this.keyRight        = 'd'
-        this.keyUp           = 'z'
-        this.keyDown         = 'x'
+        // this.keyLeft         = 'q'
+        // this.keyRight        = 'd'
+        // this.keyUp           = 'z'
+        // this.keyDown         = 'x'
 
+        // how to extract game control
+        this.keyLeft         = 'ArrowLeft'
+        this.keyRight        = 'ArrowRight'
+        this.keyUp           = 'ArrowUp'
+        this.keyDown         = 'ArrowDown'
 
     }
 }

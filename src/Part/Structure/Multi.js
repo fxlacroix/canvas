@@ -28,7 +28,7 @@ class Multi
             Multi.copy(classes.prototype, base.prototype)
         }
 
-        return classes;
+        return classes
     }
 
     // Copies the properties from one class to another

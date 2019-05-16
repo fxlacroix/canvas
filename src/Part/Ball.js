@@ -1,12 +1,12 @@
 // JS Libs
 import Multi from './Structure/Multi'
-import BaseCanvas from './Component/BaseCanvas'
+import Canvas from './Component/Canvas'
 import Gravity from './Component/Gravity'
 
 // JS Libs
 import utils from './Utils'
 
-class BallManager extends BaseCanvas{
+class BallManager extends Canvas{
 
     constructor(nCount) {
 
@@ -14,7 +14,7 @@ class BallManager extends BaseCanvas{
 
         // colors
         this.colors = ['#2185C5', '#7ECEFD', '#FFF6E5', '#FF7F66']
-        this.heap = [];
+        this.heap = []
         for(let i = 0; i < nCount; i++) {
 
             // ball props
@@ -23,14 +23,14 @@ class BallManager extends BaseCanvas{
             let dx      = utils.randomIntFromRange(-2, 2)
             let dy      = utils.randomIntFromRange(-2, 2)
             let size    = utils.randomIntFromRange(0, 30)
-            let ball = new Ball(x, y, dx, dy, size, utils.randomColor(this.colors));
+            let ball = new Ball(x, y, dx, dy, size, utils.randomColor(this.colors))
 
             this.heap.push(ball)
         }
     }
 }
 
-class Ball extends Multi.inherit(BaseCanvas, Gravity){
+class Ball extends Multi.inherit(Canvas, Gravity){
 
     constructor(x, y, dx, dy, radius, color) {
 

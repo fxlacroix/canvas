@@ -1,23 +1,16 @@
 import Multi from "./Structure/Multi";
-import BaseCanvas from './Component/BaseCanvas'
+import Canvas from './Component/Canvas'
 import Mouse from './Component/Mouse'
-import Perso from './Perso'
-import Luigi from './Component/Sprite/Luigi'
-import Link from './Component/Sprite/Link'
 
 /**
  * Board Manager
  */
-class Board extends Multi.inherit(BaseCanvas, Mouse) {
+class Board extends Multi.inherit(Canvas, Mouse) {
 
-    constructor(){
+    constructor(Persos){
         super()
-        this.perso = []
-        this.perso[0]   = new Perso(new Link())
-        this.perso[1]   = new Perso(new Luigi())
         this.keyPresses = []
-
-        this.animate()
+        this.persos     = Persos
     }
 
     animate() {
@@ -26,7 +19,7 @@ class Board extends Multi.inherit(BaseCanvas, Mouse) {
 
         //for(let perso in this.perso){
         var board  = this
-        this.perso.forEach(function(perso){
+        this.persos.forEach(function(perso){
 
             let sprite = perso.sprite
 
@@ -59,7 +52,7 @@ class Board extends Multi.inherit(BaseCanvas, Mouse) {
 
             if (!sprite.hasMoved) {
                 sprite.loopIndex = 0
-                sprite.direction = 3
+                sprite.direction = sprite.defaultDirection
             } else {
                 sprite.hasMoved = false
             }
@@ -71,6 +64,5 @@ class Board extends Multi.inherit(BaseCanvas, Mouse) {
     }
 
 }
-
 
 module.exports = Board

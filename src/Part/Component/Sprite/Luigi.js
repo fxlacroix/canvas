@@ -16,9 +16,10 @@ class Luigi {
         this.frameLimit      = 12
         this.frameCount      = 0
         this.loopIndex       = 0
-        this.movementSpeed   = 2
+        this.movementSpeed   = 5
         this.hasMoved        = false
         this.direction       = this.facingDown
+        this.defaultDirection= this.facingDown
         this.scaledWidth     = this.scale * this.width
         this.scaledHeight    = this.scale * this.height
         this.src             = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png'
