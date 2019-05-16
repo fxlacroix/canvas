@@ -10,9 +10,12 @@ class Board extends Multi.inherit(Canvas, Mouse) {
 
     constructor(Persos){
         super()
-        this.keyPresses = []
+        this.keyPresses =  this.pellets = []
         this.persos     = Persos
-        this.pellet     = new Pellet()
+
+        for(let i=0; i < 30; i++){
+            this.pellets.push(new Pellet())
+        }
     }
 
     animate() {
@@ -59,12 +62,13 @@ class Board extends Multi.inherit(Canvas, Mouse) {
             }
 
             perso.drawFrame(sprite.cycleLoop[sprite.loopIndex], sprite.direction, sprite.x, sprite.y)
-            board.pellet.draw()
 
-            if(board.detectCollision(board.pellet, perso.sprite)){
-                board.pellet.update()
-            }
-
+            board.pellets.forEach(function(pellet){
+                pellet.draw()
+                if(board.detectCollision(pellet, perso.sprite)){
+                    pellet.update()
+                }
+            })
         })
 
         window.requestAnimationFrame(this.animate.bind(this))
@@ -72,8 +76,8 @@ class Board extends Multi.inherit(Canvas, Mouse) {
 
     detectCollision(item, sprite) {
 
-        if(sprite.x < item.x && (sprite.x + sprite.width) > item.x
-        && sprite.y < item.y && sprite.y + sprite.height > item.y){
+        if(sprite.x <= item.x && (sprite.x + sprite.width) >= item.x
+        && sprite.y <= item.y && sprite.y + sprite.height >= item.y){
             return true
         }
         return false
