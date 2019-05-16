@@ -1,7 +1,8 @@
-import Multi from "../../Structure/Multi";
-import Canvas from '../Generic/Canvas'
-import Mouse from '../Generic/Mouse'
-import Pellet from '../Item/Pellet'
+import Multi    from "../../Structure/Multi";
+import Canvas   from '../Generic/Canvas'
+import Mouse    from '../Generic/Mouse'
+import Pellet   from '../Item/Pellet'
+import Utils    from '../../Helper/Utils'
 
 /**
  * Board Manager
@@ -30,17 +31,21 @@ class Board extends Multi.inherit(Canvas, Mouse) {
             if (board['keyPresses'][sprite.keyUp]) {
                 perso.update(0, -sprite.movementSpeed, sprite.facingUp)
                 sprite.hasMoved = true
+                board['keyPresses'][sprite.keyUp] = false
             } else if (board['keyPresses'][sprite.keyDown]) {
                 perso.update(0, sprite.movementSpeed, sprite.facingDown)
                 sprite.hasMoved = true
+                board['keyPresses'][sprite.keyDown] = false
             }
 
             if (board['keyPresses'][sprite.keyLeft]) {
                 perso.update(-sprite.movementSpeed, 0, sprite.facingLeft)
                 sprite.hasMoved = true
+                board['keyPresses'][sprite.keyLeft] = false
             } else if (board['keyPresses'][sprite.keyRight]) {
                 perso.update(sprite.movementSpeed, 0, sprite.facingRight)
                 sprite.hasMoved = true
+                board['keyPresses'][sprite.keyRight] = false
             }
 
             if (sprite.hasMoved) {
@@ -55,8 +60,26 @@ class Board extends Multi.inherit(Canvas, Mouse) {
             }
 
             if (!sprite.hasMoved) {
-                sprite.loopIndex = 0
-                sprite.direction = sprite.defaultDirection
+
+                if(!sprite.keepWalking.length) {
+
+                    let randomMoves = [sprite.keyUp, sprite.keyDown, sprite.keyLeft, sprite.keyRight]
+                    var rand = randomMoves[Math.floor(Math.random() * randomMoves.length)];
+                    for (let i = 0; i < sprite.cycleLoop.length * 3; i++) {
+                        sprite.keepWalking.push(rand)
+                    }
+                }
+
+                if(sprite.keepWalking.length){
+                    sprite.hasMoved = true
+                    let dir = sprite.keepWalking.pop()
+                    board['keyPresses'][dir] = true
+                }else{
+                    sprite.hasMoved = false
+                    sprite.loopIndex = 0
+                    sprite.direction = sprite.defaultDirection
+                }
+
             } else {
                 sprite.hasMoved = false
             }

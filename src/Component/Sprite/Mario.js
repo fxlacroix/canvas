@@ -2,6 +2,8 @@ class Mario {
 
     constructor() {
 
+        this.keepWalking     = []
+
         this.x               = 200
         this.y               = 100
 
@@ -29,10 +31,11 @@ class Mario {
 
 
         // how to extract game control
-        this.keyLeft         = 'ArrowLeft'
-        this.keyRight        = 'ArrowRight'
-        this.keyUp           = 'ArrowUp'
-        this.keyDown         = 'ArrowDown'
+        this.keyLeft         = 'g'
+        this.keyRight        = 'j'
+        this.keyUp           = 'y'
+        this.keyDown         = 'd'
+
 
     }
 }

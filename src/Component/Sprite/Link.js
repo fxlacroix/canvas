@@ -2,6 +2,8 @@ class Link {
 
     constructor() {
 
+        this.keepWalking     = []
+
         this.x               = 100
         this.y               = 0
 
@@ -34,10 +36,10 @@ class Link {
         // this.keyDown         = 'x'
 
         // how to extract game control
-        this.keyLeft         = 'ArrowLeft'
-        this.keyRight        = 'ArrowRight'
-        this.keyUp           = 'ArrowUp'
-        this.keyDown         = 'ArrowDown'
+        this.keyLeft         = 'q'
+        this.keyRight        = 'd'
+        this.keyUp           = 'z'
+        this.keyDown         = 'x'
 
     }
 }
