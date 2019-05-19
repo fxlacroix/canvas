@@ -1,7 +1,7 @@
-import Multi from './Component/Structure/Multi'
-import Canvas from './Component/Generic/Canvas'
-import Mouse from './Component/Generic/Mouse'
-import Link from './Component/Sprite/Link'
+import Multi from './Structure/Multi'
+import Canvas from './Generic/Canvas'
+import Mouse from './Generic/Mouse'
+import Link from './Sprite/Link'
 
 class Perso extends Multi.inherit(Canvas, Mouse) {
 

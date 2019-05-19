@@ -1,7 +1,7 @@
-import Style from './Component/Style/canvas.css'
+import Style from './Style/canvas.css'
 import Board from "./Board"
 import Perso from "./Perso";
-import Luigi from "./Component/Sprite/Luigi";
+import Luigi from "./Sprite/Luigi";
 
 /**
  * Game Manager

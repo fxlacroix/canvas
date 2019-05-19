@@ -1,7 +1,7 @@
-import Multi from "./Component/Structure/Multi";
-import Canvas from './Component/Generic/Canvas'
-import Mouse from './Component/Generic/Mouse'
-import Pellet from './Component/Item/Pellet'
+import Multi from "./Structure/Multi";
+import Canvas from './Generic/Canvas'
+import Mouse from './Generic/Mouse'
+import Pellet from './Item/Pellet'
 
 /**
  * Board Manager
