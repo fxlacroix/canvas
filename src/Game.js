@@ -1,7 +1,25 @@
-//GLOBAL STRUCTURE
-import Style from './Style/canvas.css'
-import Game from './Component/Game/Game'
-// mouse definition
+import Style from './Component/Style/canvas.css'
+import Board from "./Board"
+import Perso from "./Perso";
+import Luigi from "./Component/Sprite/Luigi";
+
+/**
+ * Game Manager
+ */
+class Game {
+
+    constructor() {
+
+        this.title = "toDefined"
+
+        this.persos = []
+        this.persos.push(new Perso(new Luigi()))
+
+        this.board = new Board(this.persos)
+        this.board.animate()
+    }
+}
+
 var game = new Game()
 
 addEventListener('resize', (event) => {

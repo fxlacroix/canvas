@@ -1,7 +1,7 @@
 // JS Libs
-import Multi from '../../Structure/Multi'
+import Multi from '../Structure/Multi'
 import Canvas from '../Generic/Canvas'
-import utils from '../../Helper/Utils'
+import utils from '../Helper/Utils'
 
 class Pellet extends Canvas{
 

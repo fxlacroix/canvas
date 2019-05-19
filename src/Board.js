@@ -1,7 +1,7 @@
-import Multi from "../../Structure/Multi";
-import Canvas from '../Generic/Canvas'
-import Mouse from '../Generic/Mouse'
-import Pellet from '../Item/Pellet'
+import Multi from "./Component/Structure/Multi";
+import Canvas from './Component/Generic/Canvas'
+import Mouse from './Component/Generic/Mouse'
+import Pellet from './Component/Item/Pellet'
 
 /**
  * Board Manager
@@ -19,6 +19,7 @@ class Board extends Multi.inherit(Canvas, Mouse) {
 
         this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
+        this.drawGrid(1350, 700, 50)
         var board  = this
         this.persos.forEach(function(perso){
 
@@ -77,6 +78,20 @@ class Board extends Multi.inherit(Canvas, Mouse) {
             return true
         }
         return false
+    }
+
+    drawGrid(bw, bh, p) {
+        for (var x = 0; x <= bw; x += p) {
+            this.c.moveTo(x + p, p);
+            this.c.lineTo(x + p, bh + p);
+        }
+
+        for (var x = 0; x <= bh; x += p) {
+            this.c.moveTo(p, x + p);
+            this.c.lineTo(bw + p, x + p);
+        }
+        this.c.strokeStyle = "black";
+        this.c.stroke();
     }
 
 }
