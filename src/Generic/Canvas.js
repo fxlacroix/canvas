@@ -10,7 +10,6 @@ class Canvas{
         this.canvas.width   = innerWidth
         this.canvas.height  = innerHeight
         this.c              = this.canvas.getContext('2d')
-
     }
 }
 

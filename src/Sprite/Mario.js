@@ -1,6 +1,10 @@
-class Mario {
+import Sprite from '../Sprite'
+
+class Mario extends Sprite {
 
     constructor() {
+
+        super()
 
         this.x               = 200
         this.y               = 100
@@ -26,7 +30,7 @@ class Mario {
         this.scaledWidth     = this.scale * this.width
         this.scaledHeight    = this.scale * this.height
         this.src             = 'http://www.demonixis.net/wp-content/uploads/2012/04/spritesheet-mario.png'
-
+        this.img.src            = this.src
 
         // how to extract game control
         this.keyLeft         = 'ArrowLeft'

@@ -1,9 +1,13 @@
-class Link {
+import Sprite from '../Sprite'
+
+class Link extends Sprite{
 
     constructor() {
 
-        this.x               = 100
-        this.y               = 0
+        super()
+
+        this.x               = 400
+        this.y               = 300
 
         this.scale           = 1
         this.width           = 90
@@ -18,20 +22,13 @@ class Link {
         this.frameLimit      = 12
         this.frameCount      = 0
         this.loopIndex       = 0
-        this.movementSpeed   = 3
+        this.movementSpeed   = 5
         this.hasMoved        = false
-        this.scaledWidth     = this.scale * this.width
-        this.scaledHeight    = this.scale * this.height
         this.src             = 'https://www.info-d-74.com/wp-content/uploads/2015/02/sprite.png'
+        this.img.src         = this.src
 
         this.direction       = this.facingDown
         this.defaultDirection= this.facingDown
-
-        // how to extract game control
-        // this.keyLeft         = 'q'
-        // this.keyRight        = 'd'
-        // this.keyUp           = 'z'
-        // this.keyDown         = 'x'
 
         // how to extract game control
         this.keyLeft         = 'ArrowLeft'

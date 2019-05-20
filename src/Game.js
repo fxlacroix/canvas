@@ -1,7 +1,7 @@
 import Style from './Style/canvas.css'
+import Grid from "./Generic/Grid"
+import Link from "./Sprite/Link"
 import Board from "./Board"
-import Perso from "./Perso";
-import Luigi from "./Sprite/Luigi";
 
 /**
  * Game Manager
@@ -10,12 +10,12 @@ class Game {
 
     constructor() {
 
-        this.title = "toDefined"
+        let sprites = []
+        sprites.push(new Link())
 
-        this.persos = []
-        this.persos.push(new Perso(new Luigi()))
+        let grid = new Grid(800, 600, 50)
 
-        this.board = new Board(this.persos)
+        this.board = new Board(grid, sprites)
         this.board.animate()
     }
 }
@@ -37,5 +37,5 @@ addEventListener('keydown', (event) => {
 })
 
 addEventListener('keyup', (event) => {
-    game.board.keyPresses[event.key] = false
+    delete game.board.keyPresses[event.key]
 })
