@@ -11,27 +11,124 @@ class Sprite extends Canvas {
 
         super()
         this.img                = new Image()
+
+        //right, down, left, up
+        this.scenario = [
+            'r'
+        ]
+
+        this.stillMoving = []
     }
 
     listen(keys, grid, mouse) {
 
+        //this.listenScenario(grid, keys, mouse)
         this.listenKeys(grid, keys )
-        this.listenMouse(grid, mouse)
+        //this.listenMouse(grid, mouse)
 
         this.calibrateFrame()
     }
 
+    listenScenario(grid, keys, mouse){
+
+        if(this.scenario.length){
+
+            let current = this.scenario.shift()
+
+            delete keys[this.lastMvmt]
+
+            switch(current) {
+                // right
+                case 'r':
+                    // keys[this.keyRight] = true
+                    // this.lastMvmt = this.keyRight
+                    break
+                // left
+                case 'l':
+                    // keys[this.keyLeft] = true
+                    // this.lastMvmt = this.keyLeft
+                    break
+                // up
+                case 'u':
+                    // keys[this.keyUp] = true
+                    // this.lastMvmt = this.keyUp
+                    break
+                // down
+                case 'd':
+                    // keys[this.keyDown] = true
+                    // this.lastMvmt = this.keyDown
+                    break
+            }
+        } else {
+            keys = []
+            this.hasMoved = false
+        }
+    }
+
     listenKeys(grid, keys){
 
-        if (keys[this.keyUp]) {
+        // UP
+        if (keys[this.keyUp] ||
+            (this.stillMoving[this.keyUp] && this.stillMoving[this.keyUp].length)) {
+
+            if(this.stillMoving[this.keyUp] && this.stillMoving[this.keyUp].length){
+                let mvmt = this.stillMoving[this.keyUp].shift()
+                if(! this.stillMoving[this.keyUp].length) {
+                    keys[this.keyUp] = false;
+                }
+            } else {
+                this.stillMoving[this.keyUp] = [1, 1, 1, 1, 1]
+            }
+
             this.update(grid,0, -this.movementSpeed, this.facingUp)
-        } else if (keys[this.keyDown]) {
+
+        }
+
+        // DOWN
+        if (keys[this.keyDown] ||
+            (this.stillMoving[this.keyDown] && this.stillMoving[this.keyDown].length)) {
+
+            if(this.stillMoving[this.keyDown] && this.stillMoving[this.keyDown].length){
+                let mvmt = this.stillMoving[this.keyDown].shift()
+                if(! this.stillMoving[this.keyDown].length) {
+                    keys[this.keyDown] = false;
+                }
+            } else {
+                this.stillMoving[this.keyDown] = [1, 1, 1, 1, 1]
+            }
+
             this.update(grid,0, this.movementSpeed, this.facingDown)
         }
 
-        if (keys[this.keyLeft]) {
+        // LEFT
+        if (keys[this.keyLeft] ||
+            (this.stillMoving[this.keyLeft] && this.stillMoving[this.keyLeft].length)) {
+            if(this.stillMoving[this.keyLeft]  && this.stillMoving[this.keyLeft].length){
+                let mvmt = this.stillMoving[this.keyLeft].shift()
+                if(! this.stillMoving[this.keyLeft].length) {
+                    keys[this.keyLeft] = false;
+                }
+            } else {
+                this.stillMoving[this.keyLeft] = [1, 1, 1, 1, 1]
+            }
+
             this.update(grid, -this.movementSpeed, 0, this.facingLeft)
-        } else if (keys[this.keyRight]) {
+
+        }
+
+        // KEYRIGHT
+        if (keys[this.keyRight] ||
+            (this.stillMoving[this.keyRight] && this.stillMoving[this.keyRight].keyRight)) {
+
+            if(this.stillMoving[this.keyRight] && this.stillMoving[this.keyRight].keyRight){
+                let mvmt = this.stillMoving[this.keyRight].shift()
+                if(! this.stillMoving[this.keyRight].length) {
+                    keys[this.keyRight] = false;
+                }
+            } else {
+                this.stillMoving[this.keyRight] = [1, 1, 1, 1, 1]
+            }
+
             this.update(grid, this.movementSpeed, 0, this.facingRight)
         }
     }
@@ -40,10 +137,26 @@ class Sprite extends Canvas {
 
         if(mouse.down){
             if(mouse.x < grid.width && mouse.y < grid.height){
+
                 grid.hightlightSquare(mouse)
+
+                let cell = grid.detectGridCell(mouse)
+                this.updateToGrid(grid, {
+                    x: 10,
+                    y: 30
+                })
             }
         }
     }
+
+    //
+    // updateToGrid(grid, cell){
+    //
+    //     this.x = cell.x * grid.scale
+    //     this.y = cell.y * grid.scale
+    //     this.hasMoved = true
+    //
+    // }
 
     update(grid, deltaX, deltaY, direction) {
 

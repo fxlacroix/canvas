@@ -1,7 +1,8 @@
-import Multi from "./Structure/Multi"
+import Multi  from "./Structure/Multi"
 import Canvas from "./Generic/Canvas"
-import Mouse from "./Generic/Mouse"
+import Mouse  from "./Generic/Mouse"
 import Pellet from "./Item/Pellet"
+import Logger from "./Generic/Logger"
 
 /**
  * Board Manager
@@ -16,6 +17,7 @@ class Board extends Multi.inherit(Canvas, Mouse) {
         this.grid        = grid
         this.sprites     = sprites
         this.pellet      = new Pellet(grid.width + grid.scale, grid.height + grid.scale)
+        this.logger      = new Logger()
     }
 
     animate() {
@@ -23,21 +25,16 @@ class Board extends Multi.inherit(Canvas, Mouse) {
         this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
         this.grid.draw()
-        this.pellet.draw()
 
         var board = this
         this.sprites.forEach(function(sprite){
 
-            board.grid.hightlightSquare(sprite)
+            // listen keys or mouse
             sprite.listen(board.keyPresses, board.grid, board.mouse)
             sprite.draw()
 
-            if(sprite.detectCollision(board.pellet)){
-                board.pellet.update()
-                sprite.consume(board.pellet)
-            }
+            board.logger.show(board.grid, sprite)
 
-            board.c.fillText("Eatings: " + sprite.score, 1000, 75)
         })
 
 

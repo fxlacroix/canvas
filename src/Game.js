@@ -1,3 +1,5 @@
+//const EasyAStar = require('')
+
 import Style from './Style/canvas.css'
 import Grid from "./Grid"
 import Link from "./Sprite/Link"
@@ -16,8 +18,8 @@ class Game {
 
         // random world
         let grid = new Grid(
-            Math.trunc(Utils.randomIntFromRange(200, 1000) / 50) * 50,
-            Math.trunc(Utils.randomIntFromRange(200, 600) / 50) * 50,
+            800,
+            600,
             50
         )
 

@@ -11,7 +11,7 @@ class Grid extends Canvas{
 
         this.width  = width
         this.height = height
-        this.scale  = scale
+        this.scale  = this.scaleX = this.scaleY = scale
         this.matrix = []
 
         for(let i=0; i < height / scale; i ++){
