@@ -1,6 +1,10 @@
-class Luigi {
+import Sprite from '../Sprite'
+
+class Luigi extends Sprite {
 
     constructor() {
+
+        super()
 
         this.x               = 0
         this.y               = 0
@@ -23,7 +27,7 @@ class Luigi {
         this.scaledWidth     = this.scale * this.width
         this.scaledHeight    = this.scale * this.height
         this.src             = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png'
-
+        this.img.src            = this.src
 
         // how to extract game control
         this.keyLeft         = 'ArrowLeft'
