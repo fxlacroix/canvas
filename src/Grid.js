@@ -22,18 +22,17 @@ class Grid extends Canvas{
         }
     }
 
-    detectGridCell(sprite){
+    detectGridCell(item){
 
-        let x = Math.ceil((sprite.x) / this.scale)
-        let y = Math.ceil((sprite.y) / this.scale)
+        let x = Math.ceil((item.x) / this.scale)
+        let y = Math.ceil((item.y) / this.scale)
 
         return {x: x, y: y}
     }
 
+    hightlightSquare(item){
 
-    hightlightSquare(sprite){
-
-        let cell = this.detectGridCell(sprite)
+        let cell = this.detectGridCell(item)
         this.colorCell(cell)
     }
 

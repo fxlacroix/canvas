@@ -37,10 +37,7 @@ class Board extends Multi.inherit(Canvas, Mouse) {
                 sprite.consume(board.pellet)
             }
 
-            // temporary score ;)
-            board.c.font = "30px Arial"
-            board.c.strokeStyle = "black";
-            board.c.fillText("score: " + sprite.score, 1000, 75)
+            board.c.fillText("Eatings: " + sprite.score, 1000, 75)
         })
 
 
