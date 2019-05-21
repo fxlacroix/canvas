@@ -38,9 +38,12 @@ addEventListener('mousemove', function(event) {
     game.board.mouse.y = event.clientY
 })
 
-addEventListener('click', function(event) {
-    game.board.mouse.x = event.clientX
-    game.board.mouse.y = event.clientY
+addEventListener('mousedown', function(event) {
+    game.board.mouse.down = true
+})
+
+addEventListener('mouseup', function(event) {
+    game.board.mouse.down = false
 })
 
 addEventListener('keydown', (event) => {

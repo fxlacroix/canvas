@@ -15,13 +15,13 @@ class Sprite extends Canvas {
 
     listen(keys, grid, mouse) {
 
-        this.listenKeys(keys, grid)
-        this.listenMouse(mouse)
+        this.listenKeys(grid, keys )
+        this.listenMouse(grid, mouse)
 
         this.calibrateFrame()
     }
 
-    listenKeys(keys, grid){
+    listenKeys(grid, keys){
 
         if (keys[this.keyUp]) {
             this.update(grid,0, -this.movementSpeed, this.facingUp)
@@ -36,10 +36,13 @@ class Sprite extends Canvas {
         }
     }
 
-    listenMouse(mouse){
+    listenMouse(grid, mouse){
 
-
-
+        if(mouse.down){
+            if(mouse.x < grid.width && mouse.y < grid.height){
+                grid.hightlightSquare(mouse)
+            }
+        }
     }
 
     update(grid, deltaX, deltaY, direction) {
