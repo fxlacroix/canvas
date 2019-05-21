@@ -6,8 +6,10 @@ class Link extends Sprite{
 
         super()
 
-        this.x               = 400
-        this.y               = 300
+        this.x               = 1
+        this.y               = 1
+
+        this.score           = 0
 
         this.scale           = 1
         this.width           = 90
@@ -36,6 +38,11 @@ class Link extends Sprite{
         this.keyUp           = 'ArrowUp'
         this.keyDown         = 'ArrowDown'
 
+    }
+
+    // joke
+    consume(item){
+        this.score++
     }
 }
 

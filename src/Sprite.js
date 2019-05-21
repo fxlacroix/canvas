@@ -5,29 +5,23 @@ import Mouse from "./Generic/Mouse";
 /**
  * default sprite
  */
-class Sprite extends Multi.inherit(Canvas, Mouse) {
+class Sprite extends Canvas {
 
     constructor() {
 
         super()
-
-        //must be defined
-        this.x                  = 0
-        this.y                  = 0
-        this.scale              = 0
-        this.width              = 0
-        this.height             = 0
-        this.hasMoved           = false
-        this.frameCount         = 0
-        this.loopIndex          = 0
-        this.cycleLoop          = []
-        this.frameLimit         = 0
-        this.defaultDirection   = 0
-
         this.img                = new Image()
     }
 
-    listen(keys, grid) {
+    listen(keys, grid, mouse) {
+
+        this.listenKeys(keys, grid)
+        this.listenMouse(mouse)
+
+        this.calibrateFrame()
+    }
+
+    listenKeys(keys, grid){
 
         if (keys[this.keyUp]) {
             this.update(grid,0, -this.movementSpeed, this.facingUp)
@@ -40,18 +34,21 @@ class Sprite extends Multi.inherit(Canvas, Mouse) {
         } else if (keys[this.keyRight]) {
             this.update(grid, this.movementSpeed, 0, this.facingRight)
         }
-
-        this.calibrateFrame()
     }
 
-    //canvas is temporary
+    listenMouse(mouse){
+
+
+
+    }
+
     update(grid, deltaX, deltaY, direction) {
 
-        if (this.x + deltaX >= 0 && this.x + deltaX <= grid.width) {
+        if (this.x + deltaX > 0 && this.x + deltaX < grid.width) {
             this.x += deltaX
         }
 
-        if (this.y + deltaY >= 0 && this.y + deltaY <= grid.height) {
+        if (this.y + deltaY > 0 && this.y + deltaY < grid.height) {
             this.y += deltaY
         }
 
@@ -61,8 +58,8 @@ class Sprite extends Multi.inherit(Canvas, Mouse) {
 
     detectCollision(item) {
 
-        if(this.x < item.x && this.x + this.width  > item.x
-            && this.y < item.y && this.y + this.height > item.y){
+        if(this.x <= item.x && this.x + this.width >= item.x
+            && this.y <= item.y && this.y + this.height >= item.y){
             return true
         }
         return false

@@ -1,20 +1,21 @@
 // JS Libs
 import Multi from '../Structure/Multi'
 import Canvas from '../Generic/Canvas'
-import utils from '../Helper/Utils'
+import Utils from '../Helper/Utils'
 
 class Pellet extends Canvas{
 
-    constructor(x, y, dx, dy, radius, color) {
+    constructor(width, height) {
 
         super()
-
+        this.width  = width
+        this.height = height
         this.init()
     }
 
     init() {
-        this.x = utils.randomIntFromRange(0, innerWidth)
-        this.y = utils.randomIntFromRange(0, innerHeight)
+        this.x = Utils.randomIntFromRange(0, this.width)
+        this.y = Utils.randomIntFromRange(0, this.height)
         this.radius = 5
     }
 

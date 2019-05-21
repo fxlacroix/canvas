@@ -1,4 +1,4 @@
-import Canvas from "./Canvas"
+import Canvas from "./Generic/Canvas"
 
 /**
  * Grid component
@@ -24,13 +24,10 @@ class Grid extends Canvas{
 
     detectGridCell(sprite){
 
-        let x = Math.ceil(sprite.x / this.scale)
-        let y = Math.ceil(sprite.y / this.scale)
+        let x = Math.ceil((sprite.x) / this.scale)
+        let y = Math.ceil((sprite.y) / this.scale)
 
-        return {
-            x: x,
-            y: y
-        }
+        return {x: x, y: y}
     }
 
 
@@ -47,7 +44,7 @@ class Grid extends Canvas{
 
     colorCell(cell){
 
-
+        this.c.fillStyle = "#FF0000";
         this.c.fillRect(cell.x * this.scale, cell.y * this.scale, this.scale, this.scale);
         this.c.stroke();
     }
