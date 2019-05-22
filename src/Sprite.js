@@ -14,7 +14,7 @@ class Sprite extends Canvas {
 
         //right, down, left, up
         this.scenario = [
-            'r'
+            'r', 'r', 'r', 'r', 'r'
         ]
 
         this.stillMoving = []
@@ -23,7 +23,7 @@ class Sprite extends Canvas {
     listen(keys, grid, mouse) {
 
         //this.listenScenario(grid, keys, mouse)
-        this.listenKeys(grid, keys )
+        this.listenKeys(grid, keys)
         //this.listenMouse(grid, mouse)
 
         this.calibrateFrame()
@@ -90,36 +90,28 @@ class Sprite extends Canvas {
 
     listenMouse(grid, mouse){
 
+        // click on the mouse
         if(mouse.down){
+
+            this.isStillMoving = true
             if(mouse.x < grid.width && mouse.y < grid.height){
 
                 grid.hightlightSquare(mouse)
-
-                let cell = grid.detectGridCell(mouse)
-                this.updateToGrid(grid, {
-                    x: 10,
-                    y: 30
-                })
             }
         }
-    }
 
-    //
-    // updateToGrid(grid, cell){
-    //
-    //     this.x = cell.x * grid.scale
-    //     this.y = cell.y * grid.scale
-    //     this.hasMoved = true
-    //
-    // }
+        window.requestAnimationFrame(this.animate.bind(this))
+    }
 
     update(grid, deltaX, deltaY, direction) {
 
-        if (this.x + deltaX > 0 && this.x + deltaX < grid.width) {
+
+        console.log(this.x)
+        if (this.x + deltaX >= 0 && this.x + deltaX <= grid.width) {
             this.x += deltaX
         }
 
-        if (this.y + deltaY > 0 && this.y + deltaY < grid.height) {
+        if (this.y + deltaY >= 0 && this.y + deltaY <= grid.height) {
             this.y += deltaY
         }
 
@@ -157,12 +149,12 @@ class Sprite extends Canvas {
         }
     }
 
-    draw() {
+    draw(grid) {
 
-        this.drawFrame(this.cycleLoop[this.loopIndex], this.direction, this.x, this.y)
+        this.drawFrame(grid, this.cycleLoop[this.loopIndex], this.direction, this.x, this.y)
     }
 
-    drawFrame(frameX, frameY, canvasX, canvasY) {
+    drawFrame(grid, frameX, frameY, canvasX, canvasY) {
 
         this.c.drawImage(
             this.img,

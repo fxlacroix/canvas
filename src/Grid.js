@@ -37,7 +37,6 @@ class Grid extends Canvas{
     }
 
     draw(){
-
         this.drawGrid(this.width, this.height, this.scale)
     }
 
@@ -48,17 +47,18 @@ class Grid extends Canvas{
         this.c.stroke();
     }
 
-    drawGrid(bw, bh, p) {
+    drawGrid(width, height, scale) {
 
-        for (var x = 0; x <= bw; x += p) {
-            this.c.moveTo(x + p, p);
-            this.c.lineTo(x + p, bh + p);
+        for (var x = 0; x <= width; x += scale) {
+            this.c.moveTo(x, 0);
+            this.c.lineTo(x, height);
         }
 
-        for (var x = 0; x <= bh; x += p) {
-            this.c.moveTo(p, x + p);
-            this.c.lineTo(bw + p, x + p);
+        for (var y = 0; y <= height; y += scale) {
+            this.c.moveTo(0, y);
+            this.c.lineTo(width, y);
         }
+
         this.c.strokeStyle = "black";
         this.c.stroke();
     }

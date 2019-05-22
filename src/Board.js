@@ -18,30 +18,23 @@ class Board extends Multi.inherit(Canvas, Mouse) {
         this.sprites     = sprites
         this.pellet      = new Pellet(grid.width + grid.scale, grid.height + grid.scale)
         this.logger      = new Logger()
-    }
-
-    animate() {
-
-        this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
-
-        this.grid.draw()
-
-        var board = this
-        this.sprites.forEach(function(sprite){
-
-            // listen keys or mouse
-            sprite.listen(board.keyPresses, board.grid, board.mouse)
-            sprite.draw()
-
-            board.logger.show(board.grid, sprite)
-
-        })
-
 
         window.requestAnimationFrame(this.animate.bind(this))
     }
 
+    animate() {
 
+        var board = this
+
+        this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        this.grid.draw()
+        this.sprites.forEach(function(sprite){
+            // listen keys or mouse
+            sprite.listen(board.keyPresses, board.grid, board.mouse)
+            sprite.draw(board.grid)
+            board.logger.show(board.grid, sprite)
+        })
+    }
 }
 
 module.exports = Board

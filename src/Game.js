@@ -24,7 +24,6 @@ class Game {
         )
 
         this.board = new Board(grid, sprites)
-        this.board.animate()
     }
 }
 
@@ -36,7 +35,7 @@ addEventListener('resize', (event) => {
 })
 
 addEventListener('mousemove', function(event) {
-    game.board.mouse.x = event.clientX
+    game.board.mouse.x = event.clientX - 50
     game.board.mouse.y = event.clientY
 })
 

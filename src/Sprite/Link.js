@@ -6,8 +6,8 @@ class Link extends Sprite{
 
         super()
 
-        this.x               = 1
-        this.y               = 1
+        this.x               = 0
+        this.y               = 0
 
         this.score           = 0
 
@@ -37,7 +37,6 @@ class Link extends Sprite{
         this.keyRight        = 'ArrowRight'
         this.keyUp           = 'ArrowUp'
         this.keyDown         = 'ArrowDown'
-
     }
 
     // joke

@@ -12,10 +12,16 @@ class Logger extends Canvas {
     show(grid, sprite) {
 
         let cell = grid.detectGridCell(sprite)
+        let messages = [
+            ["Canvas position: " + sprite.x + "/" + sprite.y],
+            ["Grid Position: " + cell.x + "/" + cell.y]
+        ]
 
-        this.c.fillText("Canvas position: " + sprite.x + "/" + sprite.y, 1000, 75)
-        this.c.fillText("Grid Position: " + cell.x + "/" + cell.y, 1000, 150)
-        // this.c.fillText("Eatings: " + sprite.score, 1000, 225)
+        var scaleY = 50;
+        messages.forEach(function(msg){
+            this.c.fillText(msg, 0, grid.height + scaleY)
+            scaleY += scaleY
+        }.bind(this))
     }
 }
 
