@@ -1,5 +1,4 @@
 import Grid from "./Grid"
-import Link from "./Sprite/Link"
 import Luigi from "./Sprite/Luigi"
 import Board from "./Board"
 
@@ -10,10 +9,8 @@ class Game {
 
     constructor() {
 
-        let sprites = []
-        sprites.push(new Luigi())
+        let sprites = [new Luigi()]
 
-        // random world
         let grid = new Grid(
             16,
             12,
@@ -37,11 +34,11 @@ addEventListener('mousemove', function(event) {
     game.board.mouse.y = event.clientY
 })
 
-addEventListener('mousedown', function(event) {
+addEventListener('mousedown', function() {
     game.board.mouse.down = true
 })
 
-addEventListener('mouseup', function(event) {
+addEventListener('mouseup', function() {
     game.board.mouse.down = false
 })
 

@@ -12,8 +12,8 @@ class Board extends Multi.inherit(Canvas, Mouse) {
     constructor(grid, sprites){
 
         super()
-        this.keyPresses = []
 
+        this.keyPresses  = []
         this.grid        = grid
         this.sprites     = sprites
         this.pellet      = new Pellet(grid.width + grid.scale, grid.height + grid.scale)
@@ -27,14 +27,13 @@ class Board extends Multi.inherit(Canvas, Mouse) {
         this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
         this.grid.draw()
+        for (let sprite of Object.values(this.sprites)){
+            //this.logger.show(this.grid, this.sprites[0], this.mouse)
+            sprite.listen(this.keyPresses, this.grid, this.mouse)
+            sprite.draw(this.grid)
+        }
 
-        //for (let sprite of Object.values(this.sprites)){
-        this.logger.show(this.grid, this.sprites[0], this.mouse)
-        this.sprites[0].listen(this.keyPresses, this.grid, this.mouse)
-        this.sprites[0].draw(this.grid)
-        //}
-
-        window.requestAnimationFrame(this.animate.bind(this))
+       //window.requestAnimationFrame(this.animate.bind(this))
     }
 }
 

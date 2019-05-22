@@ -31,14 +31,14 @@ class Grid extends Canvas{
         return {x: x, y: y}
     }
 
-    draw(){
-        this.drawGrid(this.width, this.height, this.scale)
-    }
-
     colorCell(cell){
 
         this.c.fillRect(cell.x * this.scale, cell.y * this.scale, this.scale, this.scale);
         this.c.stroke();
+    }
+
+    draw(){
+        this.drawGrid(this.width, this.height, this.scale)
     }
 
     drawGrid(width, height, scale) {
