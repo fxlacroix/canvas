@@ -1,5 +1,6 @@
 import Grid from "./Grid"
 import Link from "./Sprite/Link"
+import Luigi from "./Sprite/Luigi"
 import Board from "./Board"
 
 /**
@@ -10,13 +11,13 @@ class Game {
     constructor() {
 
         let sprites = []
-        sprites.push(new Link())
+        sprites.push(new Luigi())
 
         // random world
         let grid = new Grid(
-            8,
-            5,
-            100
+            16,
+            12,
+            50
         )
 
         this.board = new Board(grid, sprites)

@@ -24,8 +24,6 @@ class Luigi extends Sprite {
         this.hasMoved        = false
         this.direction       = this.facingDown
         this.defaultDirection= this.facingDown
-        this.scaledWidth     = this.scale * this.width
-        this.scaledHeight    = this.scale * this.height
         this.src             = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png'
         this.img.src            = this.src
 

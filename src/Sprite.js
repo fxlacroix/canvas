@@ -26,7 +26,6 @@ class Sprite extends Canvas {
         //this.listenScenario(grid, keys, mouse)
         this.listenKeys(grid, keys)
         this.listenMouse(grid, mouse)
-
         this.calibrateFrame()
     }
 
