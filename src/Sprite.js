@@ -1,6 +1,7 @@
 import Multi from "./Structure/Multi";
 import Canvas from "./Generic/Canvas";
 import Mouse from "./Generic/Mouse";
+import Path from "./Generic/EasyPathFinding"
 
 /**
  * default sprite
@@ -10,13 +11,13 @@ class Sprite extends Canvas {
     constructor() {
 
         super()
-        this.img                = new Image()
+        this.img = new Image()
 
         //right, down, left, up
         this.scenario = [
             'r', 'r', 'r', 'r', 'r'
         ]
-
+        this.path = []
         this.stillMoving = []
     }
 
@@ -24,7 +25,7 @@ class Sprite extends Canvas {
 
         //this.listenScenario(grid, keys, mouse)
         this.listenKeys(grid, keys)
-        //this.listenMouse(grid, mouse)
+        this.listenMouse(grid, mouse)
 
         this.calibrateFrame()
     }
@@ -90,28 +91,25 @@ class Sprite extends Canvas {
 
     listenMouse(grid, mouse){
 
-        // click on the mouse
         if(mouse.down){
 
             this.isStillMoving = true
-            if(mouse.x < grid.width && mouse.y < grid.height){
+            if(mouse.x  < grid.width && mouse.y < grid.height){
 
-                grid.hightlightSquare(mouse)
+                let cell1 = grid.detectGridCell(this)
+                let cell2 = grid.detectGridCell(mouse)
+                this.path = Path.find(grid.matrix, cell1, cell2)
             }
         }
-
-        window.requestAnimationFrame(this.animate.bind(this))
     }
 
     update(grid, deltaX, deltaY, direction) {
 
-
-        console.log(this.x)
-        if (this.x + deltaX >= 0 && this.x + deltaX <= grid.width) {
+        if (this.x + deltaX >= 0 && this.x + deltaX <= grid.width - this.width) {
             this.x += deltaX
         }
 
-        if (this.y + deltaY >= 0 && this.y + deltaY <= grid.height) {
+        if (this.y + deltaY >= 0 && this.y + deltaY <= grid.height - this.width) {
             this.y += deltaY
         }
 

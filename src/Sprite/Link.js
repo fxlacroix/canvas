@@ -24,7 +24,7 @@ class Link extends Sprite{
         this.frameLimit      = 12
         this.frameCount      = 0
         this.loopIndex       = 0
-        this.movementSpeed   = 4
+        this.movementSpeed   = 5
         this.hasMoved        = false
         this.src             = 'https://www.info-d-74.com/wp-content/uploads/2015/02/sprite.png'
         this.img.src         = this.src

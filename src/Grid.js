@@ -5,18 +5,19 @@ import Canvas from "./Generic/Canvas"
  */
 class Grid extends Canvas{
 
-    constructor(width, height, scale){
+    constructor(x, y, scale){
 
         super()
-
-        this.width  = width
-        this.height = height
-        this.scale  = this.scaleX = this.scaleY = scale
+        this.x      = x
+        this.y      = y
+        this.width  = x * scale
+        this.height = y * scale
+        this.scale  = scale
         this.matrix = []
 
-        for(let i=0; i < height / scale; i ++){
+        for(let i=1; i < x; i ++){
             this.matrix[i] = []
-            for(let j=0;j < width / scale; j++){
+            for(let j=1;j < y; j++){
                 this.matrix[i][j] = 0;
             }
         }
@@ -24,16 +25,10 @@ class Grid extends Canvas{
 
     detectGridCell(item){
 
-        let x = Math.ceil((item.x) / this.scale)
-        let y = Math.ceil((item.y) / this.scale)
+        let x = Math.trunc((item.x) / this.scale)
+        let y = Math.trunc((item.y) / this.scale)
 
         return {x: x, y: y}
-    }
-
-    hightlightSquare(item){
-
-        let cell = this.detectGridCell(item)
-        this.colorCell(cell)
     }
 
     draw(){
@@ -42,24 +37,22 @@ class Grid extends Canvas{
 
     colorCell(cell){
 
-        this.c.fillStyle = "#FF0000";
         this.c.fillRect(cell.x * this.scale, cell.y * this.scale, this.scale, this.scale);
         this.c.stroke();
     }
 
     drawGrid(width, height, scale) {
 
-        for (var x = 0; x <= width; x += scale) {
+        for (let x = 0; x <= width; x += scale) {
             this.c.moveTo(x, 0);
-            this.c.lineTo(x, height);
+            this.c.lineTo(0 + x, 0 + height);
         }
 
-        for (var y = 0; y <= height; y += scale) {
-            this.c.moveTo(0, y);
-            this.c.lineTo(width, y);
+        for (let y = 0; y <= height; y += scale) {
+            this.c.moveTo(0, 0 + y);
+            this.c.lineTo(0 + width, 0 + y);
         }
 
-        this.c.strokeStyle = "black";
         this.c.stroke();
     }
 }

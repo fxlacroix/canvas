@@ -37,7 +37,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/Html/index.html'
+      template: 'src/Template/index.html'
     })
   ],
   watch: true,

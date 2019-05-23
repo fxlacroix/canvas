@@ -1,10 +1,6 @@
-//const EasyAStar = require('')
-
-import Style from './Style/canvas.css'
 import Grid from "./Grid"
 import Link from "./Sprite/Link"
 import Board from "./Board"
-import Utils from "./Helper/Utils"
 
 /**
  * Game Manager
@@ -18,15 +14,16 @@ class Game {
 
         // random world
         let grid = new Grid(
-            800,
-            600,
-            50
+            8,
+            5,
+            100
         )
 
         this.board = new Board(grid, sprites)
     }
 }
 
+// create canvas
 var game = new Game()
 
 addEventListener('resize', (event) => {
@@ -35,7 +32,7 @@ addEventListener('resize', (event) => {
 })
 
 addEventListener('mousemove', function(event) {
-    game.board.mouse.x = event.clientX - 50
+    game.board.mouse.x = event.clientX
     game.board.mouse.y = event.clientY
 })
 
