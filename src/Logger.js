@@ -23,11 +23,11 @@ class Logger extends Canvas {
             "       grid: " + cellMouse.x + "/" + cellMouse.y
         ]
         //
-        // var msgSpacing = 30;
-        // messages.forEach(function(msg){
-        //     this.c.fillText(msg, grid.width + grid.scale, grid.scale + msgSpacing)
-        //     msgSpacing += 30
-        // }.bind(this))
+        var msgSpacing = 30;
+        messages.forEach(function(msg){
+            this.c.fillText(msg, grid.width + grid.scale, grid.scale + msgSpacing)
+            msgSpacing += 30
+        }.bind(this))
         //
         // sprite.path.forEach(function(cell){
         //     grid.colorCell(cell)

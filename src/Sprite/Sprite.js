@@ -5,9 +5,12 @@ import Mouse from "../Generic/Mouse";
 /**
  * Abstract sprite
  */
-class AbstractSprite {
+class Sprite extends Canvas{
 
     constructor() {
+
+        super()
+
         this.x          = 0
         this.y          = 0
         this.path       = []
@@ -44,19 +47,18 @@ class AbstractSprite {
     }
 
     draw(grid) {
+        // position depends grid.scale
+        let canvasX = this.x * grid.scale
+        let canvasY = this.y * grid.scale
 
-        this.drawFrame(grid, this.cycleLoop[this.loopIndex], this.direction, this.x, this.y)
-    }
-
-    drawFrame(grid, frameX, frameY, gridX, gridY) {
-
-        let canvasX = gridX * grid.scale
-        let canvasY = gridY * grid.scale
+        // center
+        canvasX += (grid.scale - this.width) / 4
+        canvasY += (grid.scale - this.height) / 4
 
         this.c.drawImage(
             this.img,
-            frameX * this.width,
-            frameY * this.height,
+            this.cycleLoop[this.loopIndex] * this.width,
+            this.direction * this.height,
             this.width,
             this.height,
             canvasX,
@@ -67,4 +69,4 @@ class AbstractSprite {
     }
 }
 
-module.exports = AbstractSprite
+module.exports = Sprite

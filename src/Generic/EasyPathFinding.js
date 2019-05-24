@@ -3,6 +3,12 @@
  */
 class EasyPathFinding{
 
+    /**
+     * @param array
+     * @param cell1
+     * @param cell2
+     * @returns {Array}
+     */
     static find(array, cell1, cell2) {
 
         let path = []

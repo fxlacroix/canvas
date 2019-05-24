@@ -1,8 +1,7 @@
 import Multi from "../Structure/Multi";
-import AbstractSprite from './AbstractSprite'
-import MouseListener from "../Listener/MouseListener"
+import Sprite from './Sprite'
 
-class Luigi extends Multi.inherit(AbstractSprite, MouseListener) {
+class Luigi extends Multi.inherit(Sprite) {
 
     constructor() {
 
