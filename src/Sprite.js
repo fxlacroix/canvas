@@ -1,6 +1,6 @@
-import Multi from "../Structure/Multi";
-import Canvas from "../Generic/Canvas";
-import Mouse from "../Generic/Mouse";
+import Multi from "./Structure/Multi";
+import Canvas from "./Generic/Canvas";
+import Mouse from "./Generic/Mouse";
 
 /**
  * Abstract sprite
@@ -47,6 +47,7 @@ class Sprite extends Canvas{
     }
 
     draw(grid) {
+
         // position depends grid.scale
         let canvasX = this.x * grid.scale
         let canvasY = this.y * grid.scale

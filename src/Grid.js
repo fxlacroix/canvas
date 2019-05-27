@@ -8,11 +8,11 @@ import MouseListener from "./Listener/MouseListener"
  */
 class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
 
-    constructor(x, y, scale, sprites){
+    constructor(x, y, scale, sprite){
 
         super()
 
-        this.sprites        = sprites
+        this.sprite        = sprite
         this.x              = x
         this.y              = y
         this.width          = x * scale
@@ -34,8 +34,10 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
     listen(sprite) {
         this.sprite = sprite
         if(this.listenMouse(this, this.mouse)){
+
             cancelAnimationFrame(this.animationId)
-            window.requestAnimationFrame(this.moveSprite.bind(this))
+            this.pathReal = this.calculatePathReal()
+            this.spriteAnimationId = window.requestAnimationFrame(this.moveSprite.bind(this))
         }
     }
 
@@ -44,31 +46,53 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
         this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
         this.draw()
-
-        for (let sprite of Object.values(this.sprites)){
-            this.listen(sprite, this.keyPresses, this.mouse)
-            sprite.draw(this)
-        }
-
+        this.listen(this.sprite, this.keyPresses, this.mouse)
+        this.sprite.draw(this)
         this.animationId = window.requestAnimationFrame(this.animate.bind(this))
     }
 
+    calculatePathReal() {
+
+        let stops = []
+        let xFrom = this.sprite.x
+        let yFrom = this.sprite.y
+
+        this.path.forEach(function(direction){
+
+            for(let i=0; i < this.scale; i++) {
+
+                if (xFrom < direction.x * this.scale) {
+                    xFrom++
+                }
+                if (yFrom < direction.y * this.scale) {
+                    yFrom++
+                }
+                stops.push({
+                    x: xFrom,
+                    y: yFrom
+                })
+            }
+        }.bind(this))
+
+        return stops
+    }
 
     moveSprite() {
 
         this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-        if(this.path.length) {
+        if(this.pathReal.length) {
 
-            let cell = this.path.pop()
+            let cell = this.pathReal.shift()
             this.sprite.x = cell.x
             this.sprite.y = cell.y
 
             this.draw(this)
             this.sprite.draw(this)
+
         } else {
             cancelAnimationFrame(this.spriteAnimationId)
-            window.requestAnimationFrame(this.animate.bind(this))
+            this.animationId = window.requestAnimationFrame(this.animate.bind(this))
         }
 
         this.sprite.draw(this)

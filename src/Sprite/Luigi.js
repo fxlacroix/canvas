@@ -1,5 +1,5 @@
 import Multi from "../Structure/Multi";
-import Sprite from './Sprite'
+import Sprite from '../Sprite'
 
 class Luigi extends Multi.inherit(Sprite) {
 

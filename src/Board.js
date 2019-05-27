@@ -9,7 +9,7 @@ import Logger from "./Logger"
  */
 class Board extends Multi.inherit(Canvas, Mouse) {
 
-    constructor(grid, sprites){
+    constructor(grid, sprite){
 
         super()
 

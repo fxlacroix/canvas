@@ -9,16 +9,16 @@ class Game {
 
     constructor() {
 
-        let sprites = [new Luigi()]
+        let sprite = new Luigi()
 
         let grid = new Grid(
             16,
             12,
             50,
-            sprites
+            sprite
         )
 
-        this.board = new Board(grid, sprites)
+        this.board = new Board(grid, sprite)
     }
 }
 
@@ -41,7 +41,7 @@ addEventListener('mousedown', function() {
 })
 
 addEventListener('mouseup', function() {
-    delete game.board.grid.mouse.down
+    game.board.grid.mouse.down = false
 })
 
 addEventListener('keydown', (event) => {
