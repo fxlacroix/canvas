@@ -35,7 +35,7 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
         this.sprite = sprite
         if(this.listenMouse(this, this.mouse)){
             cancelAnimationFrame(this.animationId)
-            window.requestAnimationFrame(this.moveSprite().bind(this))
+            window.requestAnimationFrame(this.moveSprite.bind(this))
         }
     }
 
@@ -64,7 +64,8 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
             this.sprite.x = cell.x
             this.sprite.y = cell.y
 
-            this.sprite.draw()
+            this.draw(this)
+            this.sprite.draw(this)
         } else {
             cancelAnimationFrame(this.spriteAnimationId)
             window.requestAnimationFrame(this.animate.bind(this))
