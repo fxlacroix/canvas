@@ -43,7 +43,8 @@ module.exports = {
             port: 3000,
             server: {baseDir: ['dist']},
             files: ['./dist/*'],
-            notify: false
+            notify: false,
+            open: false
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
