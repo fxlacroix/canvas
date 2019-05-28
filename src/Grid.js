@@ -60,7 +60,7 @@ class Grid extends Canvas{
             this.c.lineTo(bw + p, x + p);
         }
         this.c.strokeStyle = "black";
-        this.c.stroke();
+        //this.c.stroke();
     }
 }
 

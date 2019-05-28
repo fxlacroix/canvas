@@ -1,6 +1,6 @@
 import Style from './Style/canvas.css'
 import Grid from "./Grid"
-import Link from "./Sprite/Link"
+import Bobo from "./Sprite/Bobo"
 import Board from "./Board"
 import Utils from "./Helper/Utils"
 
@@ -12,12 +12,12 @@ class Game {
     constructor() {
 
         let sprites = []
-        sprites.push(new Link())
+        sprites.push(new Bobo())
 
         // random world
         let grid = new Grid(
-            Math.trunc(Utils.randomIntFromRange(200, 1000) / 50) * 50,
-            Math.trunc(Utils.randomIntFromRange(200, 600) / 50) * 50,
+            1000,
+            500,
             50
         )
 
