@@ -2,6 +2,7 @@ import Multi from "./Structure/Multi";
 import Canvas from "./Generic/Canvas"
 import Mouse from "./Generic/Mouse"
 import MouseListener from "./Listener/MouseListener"
+import Compare from "./Structure/Object/Compare"
 
 /**
  * Grid component
@@ -67,10 +68,19 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
                 if (yFrom < direction.y * this.scale) {
                     yFrom++
                 }
-                stops.push({
-                    x: xFrom,
-                    y: yFrom
-                })
+                let cell = {x: xFrom, y: yFrom}
+
+                let found = false
+                for(let x = 0; x < stops.length; i++) {
+                    if (Object.compare(stops[x], cell)) {
+                        found = true
+                        break
+                    }
+                }
+
+                if(! found) {
+                    stops.push(cell)
+                }
             }
         }.bind(this))
 
