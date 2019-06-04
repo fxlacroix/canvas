@@ -19,6 +19,8 @@ class Luigi extends Multi.inherit(Sprite) {
 
         this.defaultDirection = this.facingDown
         this.direction        = this.defaultDirection
+
+        this.speed = 1
     }
 }
 

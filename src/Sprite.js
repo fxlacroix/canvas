@@ -46,6 +46,25 @@ class Sprite extends Canvas{
         this.isMoving = true
     }
 
+    drawReal(grid) {
+
+        // center
+        let canvasX = this.x + (grid.scale - this.width) / 4
+        let canvasY = this.y + (grid.scale - this.height) / 4
+
+        this.c.drawImage(
+            this.img,
+            this.cycleLoop[this.loopIndex] * this.width,
+            this.direction * this.height,
+            this.width,
+            this.height,
+            canvasX,
+            canvasY,
+            this.scaledWidth(),
+            this.scaledHeight()
+        )
+    }
+
     draw(grid) {
 
         // position depends grid.scale

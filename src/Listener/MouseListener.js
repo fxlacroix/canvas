@@ -13,7 +13,6 @@ class MouseListener extends Canvas {
     listenMouse(grid, mouse){
 
         if(mouse.down){
-            this.isStillMoving = true
             if(mouse.x  < grid.width && mouse.y < grid.height){
 
                 let cell1 = grid.detectGridCell(this)

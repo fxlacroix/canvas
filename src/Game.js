@@ -2,6 +2,7 @@ import Grid from "./Grid"
 import Luigi from "./Sprite/Luigi"
 import Board from "./Board"
 
+
 /**
  * Game Manager
  */
@@ -42,6 +43,7 @@ addEventListener('mousedown', function() {
 
 addEventListener('mouseup', function() {
     game.board.grid.mouse.down = false
+    delete game.board.grid.mouse.down
 })
 
 addEventListener('keydown', (event) => {

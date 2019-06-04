@@ -2,7 +2,7 @@ import Multi from "./Structure/Multi";
 import Canvas from "./Generic/Canvas"
 import Mouse from "./Generic/Mouse"
 import MouseListener from "./Listener/MouseListener"
-import Compare from "./Structure/Object/Compare"
+import Utils from "./Helper/Utils"
 
 /**
  * Grid component
@@ -28,68 +28,33 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
             }
         }
 
-        this.animationId = window.requestAnimationFrame(this.animate.bind(this))
+        this.animate()
     }
 
 
     listen(sprite) {
         this.sprite = sprite
         if(this.listenMouse(this, this.mouse)){
-
-            cancelAnimationFrame(this.animationId)
+            this.mouse.down = false
             this.pathReal = this.calculatePathReal()
-            this.spriteAnimationId = window.requestAnimationFrame(this.moveSprite.bind(this))
+            this.moveSprite()
+            return true
         }
+        return false
     }
 
     animate() {
 
-        this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
-
-        this.draw()
-        this.listen(this.sprite, this.keyPresses, this.mouse)
-        this.sprite.draw(this)
-        this.animationId = window.requestAnimationFrame(this.animate.bind(this))
+        if(! this.listen(this.sprite, this.keyPresses, this.mouse)) {
+            this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
+            this.draw()
+            this.sprite.drawReal(this)
+            this.animationId = window.requestAnimationFrame(this.animate.bind(this))
+        }
     }
 
-    calculatePathReal() {
-
-        let stops = []
-        let xFrom = this.sprite.x
-        let yFrom = this.sprite.y
-
-        this.path.forEach(function(direction){
-
-            for(let i=0; i < this.scale; i++) {
-
-                if (xFrom < direction.x * this.scale) {
-                    xFrom++
-                }
-                if (yFrom < direction.y * this.scale) {
-                    yFrom++
-                }
-                let cell = {x: xFrom, y: yFrom}
-
-                let found = false
-                for(let x = 0; x < stops.length; i++) {
-                    if (Object.compare(stops[x], cell)) {
-                        found = true
-                        break
-                    }
-                }
-
-                if(! found) {
-                    stops.push(cell)
-                }
-            }
-        }.bind(this))
-
-        return stops
-    }
 
     moveSprite() {
-
-        this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
         if(this.pathReal.length) {
 
@@ -97,16 +62,63 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
             this.sprite.x = cell.x
             this.sprite.y = cell.y
 
+            this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
             this.draw(this)
-            this.sprite.draw(this)
+            this.sprite.drawReal(this)
 
+            window.requestAnimationFrame(this.moveSprite.bind(this))
         } else {
-            cancelAnimationFrame(this.spriteAnimationId)
-            this.animationId = window.requestAnimationFrame(this.animate.bind(this))
+            this.animate()
+        }
+    }
+
+
+    calculatePathReal() {
+
+        let stops       = []
+        let duplicates  = []
+        let xFrom = this.sprite.x
+        let yFrom = this.sprite.y
+
+        if(this.path.length) {
+
+            this.path.forEach(function (direction) {
+
+                for (var i = 0; i + this.sprite.speed < this.scale; i = i + this.sprite.speed) {
+
+                    if (xFrom < direction.x * this.scale) {
+                        xFrom += i
+                    }
+                    if (yFrom < direction.y * this.scale) {
+                        yFrom += i
+                    }
+                    let cell = {x: xFrom, y: yFrom}
+
+                    if(duplicates.indexOf(cell.x + "-" + cell.y) == -1){
+                        duplicates.push(cell.x + "-" + cell.y)
+                        stops.push(cell)
+                    }
+                }
+
+            }.bind(this))
+
+            delete this.path
+
+            return stops
         }
 
-        this.sprite.draw(this)
+        return []
+    }
 
+    compare(item1, item2) {
+
+        // Get the object type
+        let itemType = Object.prototype.toString.call(item1);
+
+        // If an object or array, compare recursively
+        if (['[object Array]', '[object Object]'].indexOf(itemType) >= 0) {
+            if (!Utils.isEqual(item1, item2)) return false;
+        }
     }
 
     colorCell(cell){
