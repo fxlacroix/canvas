@@ -2,7 +2,6 @@ import Grid from "./Grid"
 import Luigi from "./Sprite/Luigi"
 import Board from "./Board"
 
-
 /**
  * Game Manager
  */

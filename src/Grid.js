@@ -2,7 +2,6 @@ import Multi from "./Structure/Multi";
 import Canvas from "./Generic/Canvas"
 import Mouse from "./Generic/Mouse"
 import MouseListener from "./Listener/MouseListener"
-import Utils from "./Helper/Utils"
 
 /**
  * Grid component
@@ -20,111 +19,16 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
         this.height         = y * scale
         this.scale          = scale
         this.matrix         = []
+        this.path           = null
 
-        for(let i=1; i < x; i ++){
+        for(let i=0; i < x; i ++){
             this.matrix[i] = []
-            for(let j=1;j < y; j++){
+            for(let j=0;j < y; j++){
                 this.matrix[i][j] = 0;
             }
         }
 
         this.animate()
-    }
-
-
-    listen(sprite) {
-        this.sprite = sprite
-        if(this.listenMouse(this, this.mouse)){
-            this.mouse.down = false
-            this.pathReal = this.calculatePathReal()
-            this.moveSprite()
-            return true
-        }
-        return false
-    }
-
-    animate() {
-
-        if(! this.listen(this.sprite, this.keyPresses, this.mouse)) {
-            this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
-            this.draw()
-            this.sprite.drawReal(this)
-            this.animationId = window.requestAnimationFrame(this.animate.bind(this))
-        }
-    }
-
-
-    moveSprite() {
-
-        if(this.pathReal.length) {
-
-            let cell = this.pathReal.shift()
-            this.sprite.x = cell.x
-            this.sprite.y = cell.y
-
-            this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
-            this.draw(this)
-            this.sprite.drawReal(this)
-
-            window.requestAnimationFrame(this.moveSprite.bind(this))
-        } else {
-            this.animate()
-        }
-    }
-
-
-    calculatePathReal() {
-
-        let stops       = []
-        let duplicates  = []
-        let xFrom = this.sprite.x
-        let yFrom = this.sprite.y
-
-        if(this.path.length) {
-
-            this.path.forEach(function (direction) {
-
-                for (var i = 0; i + this.sprite.speed < this.scale; i = i + this.sprite.speed) {
-
-                    if (xFrom < direction.x * this.scale) {
-                        xFrom += i
-                    }
-                    if (yFrom < direction.y * this.scale) {
-                        yFrom += i
-                    }
-                    let cell = {x: xFrom, y: yFrom}
-
-                    if(duplicates.indexOf(cell.x + "-" + cell.y) == -1){
-                        duplicates.push(cell.x + "-" + cell.y)
-                        stops.push(cell)
-                    }
-                }
-
-            }.bind(this))
-
-            delete this.path
-
-            return stops
-        }
-
-        return []
-    }
-
-    compare(item1, item2) {
-
-        // Get the object type
-        let itemType = Object.prototype.toString.call(item1);
-
-        // If an object or array, compare recursively
-        if (['[object Array]', '[object Object]'].indexOf(itemType) >= 0) {
-            if (!Utils.isEqual(item1, item2)) return false;
-        }
-    }
-
-    colorCell(cell){
-
-        this.c.fillRect(cell.x * this.scale, cell.y * this.scale, this.scale, this.scale);
-        this.c.stroke();
     }
 
     detectGridCell(item){
@@ -133,6 +37,27 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
         let y = Math.trunc((item.y) / this.scale)
 
         return {x: x, y: y}
+    }
+
+
+    listen() {
+
+        if(this.listenMouse(this, this.mouse)){
+            return true
+        }
+
+        return false
+    }
+
+    animate() {
+
+        if(! this.listen()) {
+
+            this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
+            this.draw()
+            this.sprite.drawReal(this)
+            window.requestAnimationFrame(this.animate.bind(this))
+        }
     }
 
     draw(){
@@ -149,6 +74,13 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
 
         this.c.stroke();
     }
+
+    colorCell(cell){
+
+        this.c.fillRect(cell.x * this.scale, cell.y * this.scale, this.scale, this.scale);
+        this.c.stroke();
+    }
+
 
 }
 

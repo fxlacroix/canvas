@@ -24,14 +24,6 @@ class Sprite extends Canvas{
 
     }
 
-    scaledWidth() {
-        return this.scale * this.width
-    }
-
-    scaledHeight() {
-        return this.scale * this.height
-    }
-
     update(grid, deltaX, deltaY, direction) {
 
         if (this.x + deltaX >= 0 && this.x + deltaX <= grid.width - this.width) {
@@ -46,23 +38,23 @@ class Sprite extends Canvas{
         this.isMoving = true
     }
 
-    drawReal(grid) {
+    move(grid) {
 
-        // center
-        let canvasX = this.x + (grid.scale - this.width) / 4
-        let canvasY = this.y + (grid.scale - this.height) / 4
+        if(grid.pathReal.length) {
 
-        this.c.drawImage(
-            this.img,
-            this.cycleLoop[this.loopIndex] * this.width,
-            this.direction * this.height,
-            this.width,
-            this.height,
-            canvasX,
-            canvasY,
-            this.scaledWidth(),
-            this.scaledHeight()
-        )
+            let cell = grid.pathReal.shift()
+            this.x = cell.x
+            this.y = cell.y
+
+            this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
+            grid.draw(this)
+            this.drawReal(this)
+
+            window.requestAnimationFrame(this.moveSprite.bind(this))
+        } else {
+            grid.path = null
+            grid.animate()
+        }
     }
 
     draw(grid) {
@@ -87,6 +79,34 @@ class Sprite extends Canvas{
             this.scaledHeight()
         )
     }
+
+    drawReal(grid) {
+
+        // center
+        let canvasX = this.x + (grid.scale - this.width) / 4
+        let canvasY = this.y + (grid.scale - this.height) / 4
+
+        this.c.drawImage(
+            this.img,
+            this.cycleLoop[this.loopIndex] * this.width,
+            this.direction * this.height,
+            this.width,
+            this.height,
+            canvasX,
+            canvasY,
+            this.scaledWidth(),
+            this.scaledHeight()
+        )
+    }
+
+    scaledWidth() {
+        return this.scale * this.width
+    }
+
+    scaledHeight() {
+        return this.scale * this.height
+    }
+
 }
 
 module.exports = Sprite
