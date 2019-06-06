@@ -1,5 +1,6 @@
-import Canvas from "../Generic/Canvas";
-import EasyStar from "../Vendor/easystarjs/src/easystar"
+import Canvas   from "../Generic/Canvas";
+//import EasyStar from "../Vendor/EasyStar.js"
+import EasyStar from "../Generic/EasyPathFinding"
 
 /**
  * default sprite
@@ -10,7 +11,7 @@ class MouseListener extends Canvas {
         super();
     }
 
-    listenMouse(grid, mouse){
+    listenMouse(grid, mouse, callback){
 
         if(mouse.down){
 
@@ -18,25 +19,26 @@ class MouseListener extends Canvas {
 
             if(mouse.x  < grid.width && mouse.y < grid.height){
 
+                let easystar = new EasyStar.js ()
                 let cell1 = grid.detectGridCell(grid.sprite)
                 let cell2 = grid.detectGridCell(mouse)
-                let easystar = new EasyStar.js()
 
                 easystar.setGrid(grid.matrix)
                 easystar.setAcceptableTiles([0])
-                easystar.enableSync()
-                easystar.enableDiagonals()
+                // easystar.enableSync()
+                // easystar.enableDiagonals()
 
-
-                easystar.findPath(0,0,0,4, function(path){
+                easystar.findPath(cell1.x, cell1.y, cell2.x, cell2.y, function(path){
                     grid.path     = path
                     grid.pathReal = this.calculatePathReal(grid)
                     grid.sprite.move(grid)
 
                 }.bind(this))
             }
+
             return true
         }
+
         return false
     }
 
@@ -67,7 +69,6 @@ class MouseListener extends Canvas {
                         stops.push(cell)
                     }
                 }
-
             }.bind(this))
 
             grid.path = null

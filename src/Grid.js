@@ -42,7 +42,12 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
 
     listen() {
 
-        if(this.listenMouse(this, this.mouse)){
+        if(this.listenMouse(this, this.mouse, function(path){
+            grid.path     = path
+            grid.pathReal = this.calculatePathReal(grid)
+            grid.sprite.move(grid)
+
+        })){
             return true
         }
 
