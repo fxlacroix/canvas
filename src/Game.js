@@ -1,6 +1,7 @@
 import Grid from "./Grid"
 import Luigi from "./Sprite/Luigi"
 import Board from "./Board"
+import Dispatcher from "./Generic/EventDispatcher"
 
 /**
  * Game Manager
@@ -9,16 +10,9 @@ class Game {
 
     constructor() {
 
-        let sprite = new Luigi()
-
-        let grid = new Grid(
-            16,
-            12,
-            50,
-            sprite
-        )
-
-        this.board = new Board(grid, sprite)
+        let sprite  = new Luigi()
+        let grid    = new Grid(16, 12, 50, sprite)
+        this.board  = new Board(grid, sprite)
     }
 }
 
@@ -29,6 +23,7 @@ var game = new Game()
 addEventListener('resize', (event) => {
     game.board.canvas.width  = innerWidth
     game.board.canvas.height = innerHeight
+
 })
 
 addEventListener('mousemove', function(event) {
@@ -42,7 +37,6 @@ addEventListener('mousedown', function() {
 
 addEventListener('mouseup', function() {
     game.board.grid.mouse.down = false
-    delete game.board.grid.mouse.down
 })
 
 addEventListener('keydown', (event) => {
