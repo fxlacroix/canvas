@@ -1,4 +1,4 @@
-import Multi from "./Structure/Multi";
+import Multi from "./Generic/Multi";
 import Canvas from "./Generic/Canvas"
 import Mouse from "./Generic/Mouse"
 import MouseListener from "./Listener/MouseListener"
@@ -33,8 +33,8 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
 
     detectGridCell(item){
 
-        let x = Math.trunc((item.x) / this.scale)
-        let y = Math.trunc((item.y) / this.scale)
+        let x = Math.floor((item.x) / this.scale)
+        let y = Math.floor((item.y) / this.scale)
 
         return {x: x, y: y}
     }

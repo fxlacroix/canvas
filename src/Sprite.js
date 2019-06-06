@@ -1,6 +1,5 @@
-import Multi from "./Structure/Multi";
 import Canvas from "./Generic/Canvas";
-import Mouse from "./Generic/Mouse";
+import Logger from "./Logger"
 
 /**
  * Abstract sprite
@@ -21,6 +20,7 @@ class Sprite extends Canvas{
 
         this.scale      = 2
         this.isMoving   = false
+        this.logger = new Logger()
 
     }
 
@@ -40,9 +40,11 @@ class Sprite extends Canvas{
 
     move(grid) {
 
-        if(grid.pathReal.length) {
+        if(this.pathReal.length) {
 
-            let cell = grid.pathReal.shift()
+            this.logger.show(grid, this)
+
+            let cell = this.pathReal.shift()
             this.x = cell.x
             this.y = cell.y
 
@@ -50,7 +52,10 @@ class Sprite extends Canvas{
             grid.draw(this)
             this.drawReal(this)
 
-            window.requestAnimationFrame(this.moveSprite.bind(this))
+            window.requestAnimationFrame(function(){
+                this.move(grid)
+            }.bind(this))
+
         } else {
             grid.path = null
             grid.animate()

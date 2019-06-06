@@ -1,6 +1,5 @@
 import Canvas   from "../Generic/Canvas";
-//import EasyStar from "../Vendor/EasyStar.js"
-import EasyStar from "../Generic/EasyPathFinding"
+import Utils from "../Generic/Utils"
 
 /**
  * default sprite
@@ -19,21 +18,11 @@ class MouseListener extends Canvas {
 
             if(mouse.x  < grid.width && mouse.y < grid.height){
 
-                let easystar = new EasyStar.js ()
                 let cell1 = grid.detectGridCell(grid.sprite)
                 let cell2 = grid.detectGridCell(mouse)
-
-                easystar.setGrid(grid.matrix)
-                easystar.setAcceptableTiles([0])
-                // easystar.enableSync()
-                // easystar.enableDiagonals()
-
-                easystar.findPath(cell1.x, cell1.y, cell2.x, cell2.y, function(path){
-                    grid.path     = path
-                    grid.pathReal = this.calculatePathReal(grid)
-                    grid.sprite.move(grid)
-
-                }.bind(this))
+                grid.path=Utils.findPath(grid.matrix, Object.values(cell1), Object.values(cell2))
+                grid.sprite.pathReal = this.calculatePathReal(grid)
+                grid.sprite.move(grid)
             }
 
             return true
@@ -47,31 +36,36 @@ class MouseListener extends Canvas {
 
         let stops       = []
         let duplicates  = []
-        let xFrom = this.sprite.x
-        let yFrom = this.sprite.y
+        var xFrom = this.sprite.x
+        var yFrom = this.sprite.y
 
         if(grid.path.length) {
 
-            grid.path.forEach(function (direction) {
+            for(let key in grid.path) {
 
-                for (var i = 0; i + grid.sprite.speed < grid.scale; i++) {
+                for (let i = 0; i + grid.sprite.speed < grid.scale ; i++) {
 
-                    if (xFrom < direction.x * grid.scale) {
+                    if (xFrom < grid.path[key][0] * grid.scale) {
                         xFrom += i
                     }
-                    if (yFrom < direction.y * grid.scale) {
+                    if (xFrom > grid.path[key][0] * grid.scale) {
+                        xFrom -= i
+                    }
+                    if (yFrom < grid.path[key][1] * grid.scale) {
                         yFrom += i
+                    }
+                    if (yFrom > grid.path[key][1] * grid.scale) {
+                        yFrom -= i
                     }
                     let cell = {x: xFrom, y: yFrom}
 
                     if(duplicates.indexOf(cell.x + "-" + cell.y) == -1){
+
                         duplicates.push(cell.x + "-" + cell.y)
                         stops.push(cell)
                     }
                 }
-            }.bind(this))
-
-            grid.path = null
+            }
 
             return stops
         }

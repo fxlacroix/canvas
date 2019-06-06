@@ -1,4 +1,4 @@
-import Multi from "../Structure/Multi";
+import Multi from "../Generic/Multi";
 import Sprite from '../Sprite'
 
 class Luigi extends Multi.inherit(Sprite) {
