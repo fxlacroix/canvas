@@ -26,7 +26,7 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
         for(let i=0; i < x; i ++){
             this.matrix[i] = []
             for(let j=0;j < y; j++){
-                if(! Utils.randomIntFromRange(0, 10)){
+                if((i!=0 && j!=0) && ! Utils.randomIntFromRange(0, 2)){
                     this.matrix[i][j] = 1
                     this.blocks.push({x:i, y:j})
                 } else {
@@ -35,7 +35,7 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
             }
         }
 
-        this.animate()
+        this.init()
     }
 
     detectGridCell(item){
@@ -49,30 +49,14 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
 
     listen() {
 
-        if(this.listenMouse(this, this.mouse, function(path){
-            grid.path     = path
-            grid.pathReal = this.calculatePathReal(grid)
-            grid.sprite.move(grid)
-
-        })){
+        if(this.listenMouse(this, this.mouse)){
             return true
         }
-
         return false
     }
 
-    animate() {
 
-        if(! this.listen()) {
-
-            this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
-            this.draw()
-            this.sprite.drawReal(this)
-            window.requestAnimationFrame(this.animate.bind(this))
-        }
-    }
-
-    draw(){
+    init(){
 
         for (let x = 0; x <= this.width; x += this.scale) {
             this.c.moveTo(x, 0);
@@ -85,10 +69,29 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
         }
 
         this.c.stroke()
+
         this.blocks.forEach(function(cell){
             this.colorCell(cell)
         }.bind(this))
 
+        this.sprite.draw(this)
+
+
+    }
+
+    draw(grid) {
+
+        for (let x = 0; x <= grid.width; x += grid.scale) {
+            grid.c.moveTo(x, 0);
+            grid.c.lineTo(0 + x, 0 + grid.height);
+        }
+
+        for (let y = 0; y <= grid.height; y += grid.scale) {
+            grid.c.moveTo(0, 0 + y);
+            grid.c.lineTo(0 + grid.width, 0 + y);
+        }
+
+        grid.c.stroke()
     }
 
     colorCell(cell){

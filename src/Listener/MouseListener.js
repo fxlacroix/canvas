@@ -18,6 +18,8 @@ class MouseListener extends Canvas {
 
             if(mouse.x  < grid.width && mouse.y < grid.height){
 
+
+                // put that is a callback function
                 let cell1 = grid.detectGridCell(grid.sprite)
                 let cell2 = grid.detectGridCell(mouse)
                 grid.path=Utils.findPath(grid.matrix, Object.values(cell1), Object.values(cell2))

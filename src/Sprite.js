@@ -12,6 +12,8 @@ class Sprite extends Canvas{
 
         this.x          = 0
         this.y          = 0
+
+        this.last       = {x: this.x, y: this.y}
         this.path       = []
         this.img        = new Image()
 
@@ -20,7 +22,7 @@ class Sprite extends Canvas{
 
         this.scale      = 2
         this.isMoving   = false
-        this.logger = new Logger()
+        this.logger     = new Logger()
 
     }
 
@@ -47,18 +49,15 @@ class Sprite extends Canvas{
             this.y          = cell.y
             this.direction  = cell.direction
             this.loopIndex = (++this.loopIndex) % this.cycleLoop.length
-
-            this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
-            grid.draw(this)
+            
+            grid.draw(grid)
             this.drawReal(grid)
-
             window.requestAnimationFrame(function(){
                 this.move(grid)
             }.bind(this))
 
         } else {
             grid.path = null
-            grid.animate()
         }
     }
 
@@ -87,6 +86,8 @@ class Sprite extends Canvas{
 
     drawReal(grid) {
 
+        this.c.clearRect(this.last.x, this.last.y, this.scaledWidth(), this.scaledHeight())
+
         // center
         let canvasX = this.x + (grid.scale - this.width) / 4
         let canvasY = this.y + (grid.scale - this.height) / 4
@@ -102,6 +103,10 @@ class Sprite extends Canvas{
             this.scaledWidth(),
             this.scaledHeight()
         )
+
+        this.last = {x: canvasX, y: canvasY}
+
+
     }
 
     scaledWidth() {

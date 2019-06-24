@@ -32,6 +32,7 @@ addEventListener('mousemove', function(event) {
 
 addEventListener('mousedown', function() {
     game.board.grid.mouse.down = true
+    game.board.grid.listen()
 })
 
 addEventListener('mouseup', function() {
