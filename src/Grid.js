@@ -1,6 +1,7 @@
 import Multi from "./Generic/Multi";
 import Canvas from "./Generic/Canvas"
 import Mouse from "./Generic/Mouse"
+import Utils from "./Generic/Utils"
 import MouseListener from "./Listener/MouseListener"
 
 /**
@@ -19,12 +20,18 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
         this.height         = y * scale
         this.scale          = scale
         this.matrix         = []
+        this.blocks         = []
         this.path           = null
 
         for(let i=0; i < x; i ++){
             this.matrix[i] = []
             for(let j=0;j < y; j++){
-                this.matrix[i][j] = 0;
+                if(! Utils.randomIntFromRange(0, 10)){
+                    this.matrix[i][j] = 1
+                    this.blocks.push({x:i, y:j})
+                } else {
+                    this.matrix[i][j] = 0
+                }
             }
         }
 
@@ -77,7 +84,11 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
             this.c.lineTo(0 + this.width, 0 + y);
         }
 
-        this.c.stroke();
+        this.c.stroke()
+        this.blocks.forEach(function(cell){
+            this.colorCell(cell)
+        }.bind(this))
+
     }
 
     colorCell(cell){

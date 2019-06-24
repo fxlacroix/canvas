@@ -42,8 +42,6 @@ class Sprite extends Canvas{
 
         if(this.pathReal.length) {
 
-            this.logger.show(grid, this)
-
             let cell = this.pathReal.shift()
             this.x          = cell.x
             this.y          = cell.y
