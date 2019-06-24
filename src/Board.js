@@ -9,7 +9,6 @@ class Board{
 
         this.keyPresses  = []
         this.grid        = grid
-        this.logger      = new Logger()
     }
 
 }

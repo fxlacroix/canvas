@@ -1,7 +1,6 @@
 import Grid from "./Grid"
 import Luigi from "./Sprite/Luigi"
 import Board from "./Board"
-import Dispatcher from "./Generic/EventDispatcher"
 
 /**
  * Game Manager

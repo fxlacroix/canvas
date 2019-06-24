@@ -45,12 +45,14 @@ class Sprite extends Canvas{
             this.logger.show(grid, this)
 
             let cell = this.pathReal.shift()
-            this.x = cell.x
-            this.y = cell.y
+            this.x          = cell.x
+            this.y          = cell.y
+            this.direction  = cell.direction
+            this.loopIndex = (++this.loopIndex) % this.cycleLoop.length
 
             this.c.clearRect(0, 0, this.canvas.width, this.canvas.height)
             grid.draw(this)
-            this.drawReal(this)
+            this.drawReal(grid)
 
             window.requestAnimationFrame(function(){
                 this.move(grid)

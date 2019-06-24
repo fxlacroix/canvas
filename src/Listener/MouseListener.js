@@ -36,8 +36,9 @@ class MouseListener extends Canvas {
 
         let stops       = []
         let duplicates  = []
-        var xFrom = this.sprite.x
-        var yFrom = this.sprite.y
+        let xFrom       = grid.sprite.x
+        let yFrom       = grid.sprite.y
+        let direction   = grid.sprite.defaultDirection
 
         if(grid.path.length) {
 
@@ -47,17 +48,21 @@ class MouseListener extends Canvas {
 
                     if (xFrom < grid.path[key][0] * grid.scale) {
                         xFrom += i
+                        direction = grid.sprite.facingRight
                     }
                     if (xFrom > grid.path[key][0] * grid.scale) {
                         xFrom -= i
+                        direction = grid.sprite.facingLeft
                     }
                     if (yFrom < grid.path[key][1] * grid.scale) {
                         yFrom += i
+                        direction = grid.sprite.facingUp
                     }
                     if (yFrom > grid.path[key][1] * grid.scale) {
                         yFrom -= i
+                        direction = grid.sprite.facingDown
                     }
-                    let cell = {x: xFrom, y: yFrom}
+                    let cell = {x: xFrom, y: yFrom, direction: direction}
 
                     if(duplicates.indexOf(cell.x + "-" + cell.y) == -1){
 
