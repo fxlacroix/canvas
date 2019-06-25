@@ -34,14 +34,14 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
                 }
             }
         }
-
+            console.log(this.matrix)
         this.init()
     }
 
     detectGridCell(item){
 
-        let x = Math.floor((item.x) / this.scale)
-        let y = Math.floor((item.y) / this.scale)
+        let x = Math.trunc((item.x) / this.scale)
+        let y = Math.trunc((item.y) / this.scale)
 
         return {x: x, y: y}
     }
@@ -50,6 +50,7 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
     listen() {
 
         if(this.listenMouse(this, this.mouse)){
+            console.clear();
             return true
         }
         return false

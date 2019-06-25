@@ -10,7 +10,7 @@ class Game {
     constructor() {
 
         let sprite  = new Luigi()
-        let grid    = new Grid(16, 12, 50, sprite)
+        let grid    = new Grid(10, 10, 50, sprite)
         this.board  = new Board(grid, sprite)
     }
 }

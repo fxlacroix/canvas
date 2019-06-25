@@ -12,19 +12,19 @@ class MouseListener extends Canvas {
 
     listenMouse(grid, mouse, callback){
 
+        let sprite = grid.sprite
         if(mouse.down){
 
             grid.mouse.down = false
 
             if(mouse.x  < grid.width && mouse.y < grid.height){
 
-
                 // put that is a callback function
-                let cell1 = grid.detectGridCell(grid.sprite)
+                let cell1 = grid.detectGridCell(sprite)
                 let cell2 = grid.detectGridCell(mouse)
-                grid.path=Utils.findPath(grid.matrix, Object.values(cell1), Object.values(cell2))
-                grid.sprite.pathReal = this.calculatePathReal(grid)
-                grid.sprite.move(grid)
+                sprite.path=Utils.findPath(grid.matrix, Object.values(cell1), Object.values(cell2))
+                sprite.pathReal = this.calculatePathReal(grid)
+                sprite.move(grid)
             }
 
             return true
@@ -38,31 +38,32 @@ class MouseListener extends Canvas {
 
         let stops       = []
         let duplicates  = []
+        let sprite      = grid.sprite
         let xFrom       = grid.sprite.x
         let yFrom       = grid.sprite.y
         let direction
 
-        if(grid.path.length) {
+        if(sprite.path.length) {
 
-            for(let key in grid.path) {
+            for(let key in sprite.path) {
 
-                for (let i = 0; i + grid.sprite.speed < grid.scale ; i++) {
+                for (let i = 0; i + sprite.speed < grid.scale ; i++) {
 
-                    if (xFrom < grid.path[key][0] * grid.scale) {
+                    if (xFrom < sprite.path[key][0] * grid.scale) {
                         xFrom += i
-                        direction = grid.sprite.facingRight
+                        direction = sprite.facingRight
                     }
-                    if (xFrom > grid.path[key][0] * grid.scale) {
+                    if (xFrom > sprite.path[key][0] * grid.scale) {
                         xFrom -= i
-                        direction = grid.sprite.facingLeft
+                        direction = sprite.facingLeft
                     }
-                    if (yFrom < grid.path[key][1] * grid.scale) {
+                    if (yFrom < sprite.path[key][1] * grid.scale) {
                         yFrom += i
-                        direction = grid.sprite.facingDown
+                        direction = sprite.facingDown
                     }
-                    if (yFrom > grid.path[key][1] * grid.scale) {
+                    if (yFrom > sprite.path[key][1] * grid.scale) {
                         yFrom -= i
-                        direction = grid.sprite.facingUp
+                        direction = sprite.facingUp
                     }
                     let cell = {x: xFrom, y: yFrom, direction: direction}
 
@@ -74,7 +75,7 @@ class MouseListener extends Canvas {
                 }
             }
 
-            stops[stops.length - 1].direction = grid.sprite.defaultDirection
+            stops[stops.length - 1].direction = sprite.defaultDirection
 
             return stops
         }
