@@ -1,102 +1,89 @@
-import Multi from "./Structure/Multi";
 import Canvas from "./Generic/Canvas";
-import Mouse from "./Generic/Mouse";
+import Logger from "./Logger"
 
 /**
- * default sprite
+ * Abstract sprite
  */
-class Sprite extends Canvas {
+class Sprite extends Canvas{
 
     constructor() {
 
         super()
-        this.img                = new Image()
-    }
 
-    listen(keys, grid, mouse) {
+        this.x          = 0
+        this.y          = 0
 
-        this.listenKeys(keys, grid)
-        this.listenMouse(mouse)
+        this.last       = {x: this.x, y: this.y}
+        this.path       = []
+        this.img        = new Image()
 
-        this.calibrateFrame()
-    }
+        this.frameCount = 0
+        this.loopIndex  = 0
 
-    listenKeys(keys, grid){
-
-        if (keys[this.keyUp]) {
-            this.update(grid,0, -this.movementSpeed, this.facingUp)
-        } else if (keys[this.keyDown]) {
-            this.update(grid,0, this.movementSpeed, this.facingDown)
-        }
-
-        if (keys[this.keyLeft]) {
-            this.update(grid, -this.movementSpeed, 0, this.facingLeft)
-        } else if (keys[this.keyRight]) {
-            this.update(grid, this.movementSpeed, 0, this.facingRight)
-        }
-    }
-
-    listenMouse(mouse){
-
-
+        this.isMoving   = false
+        this.logger     = new Logger()
 
     }
 
     update(grid, deltaX, deltaY, direction) {
 
-        if (this.x + deltaX > 0 && this.x + deltaX < grid.width) {
+        if (this.x + deltaX >= 0 && this.x + deltaX <= grid.width - this.width) {
             this.x += deltaX
         }
 
-        if (this.y + deltaY > 0 && this.y + deltaY < grid.height) {
+        if (this.y + deltaY >= 0 && this.y + deltaY <= grid.height - this.width) {
             this.y += deltaY
         }
 
         this.direction = direction
-        this.hasMoved = true
+        this.isMoving = true
     }
 
-    detectCollision(item) {
+    move(grid) {
 
-        if(this.x <= item.x && this.x + this.width >= item.x
-            && this.y <= item.y && this.y + this.height >= item.y){
-            return true
-        }
-        return false
-    }
+        if(this.pathReal.length) {
 
-    calibrateFrame() {
+            // console.log(this.path)
+            this.logger.show(grid, this)
 
-        if (this.hasMoved) {
-            this.frameCount++
-            if (this.frameCount >= this.frameLimit) {
-                this.frameCount = 0
-                this.loopIndex++
-                if (this.loopIndex >= this.cycleLoop.length) {
-                    this.loopIndex = 0
-                }
+            let cell = this.pathReal.shift()
+            this.x          = cell.x
+            this.y          = cell.y
+            this.direction  = cell.direction
+            this.loopIndex = (++this.loopIndex) % this.cycleLoop.length
+
+            if(this.pathReal.length == 0) {
+                this.loopIndex = 0
             }
-        }
 
-        if (!this.hasMoved) {
-            this.loopIndex = 0
-            this.direction = this.defaultDirection
+            // delete, draw grid, draw sprite
+            this.delete(grid)
+            grid.draw(grid)
+            this.drawReal(grid)
+
+            window.requestAnimationFrame(function(){
+                this.move(grid)
+            }.bind(this))
+
         } else {
-            this.hasMoved = false
+            this.path = null
         }
     }
 
-    draw() {
+    draw(grid) {
 
-        this.drawFrame(this.cycleLoop[this.loopIndex], this.direction, this.x, this.y)
-    }
+        // position depends grid.scale
+        let canvasX = this.x * grid.scale
+        let canvasY = this.y * grid.scale
 
-    drawFrame(frameX, frameY, canvasX, canvasY) {
+        // center
+        canvasX += (grid.scale - this.width) / 4
+        canvasY += (grid.scale - this.height) / 4
 
         this.c.drawImage(
             this.img,
-            frameX * this.width,
-            frameY * this.height,
+            this.cycleLoop[this.loopIndex] * this.width,
+            this.direction * this.height,
             this.width,
             this.height,
             canvasX,
@@ -106,6 +93,32 @@ class Sprite extends Canvas {
         )
     }
 
+    delete() {
+
+        this.c.clearRect(this.last.x, this.last.y, this.scaledWidth(), this.scaledHeight())
+    }
+
+    drawReal(grid) {
+
+        // center
+        let canvasX = this.x + (grid.scale - this.width) / 4
+        let canvasY = this.y + (grid.scale - this.height) / 4
+
+        this.c.drawImage(
+            this.img,
+            this.cycleLoop[this.loopIndex] * this.width,
+            this.direction * this.height,
+            this.width,
+            this.height,
+            canvasX,
+            canvasY,
+            this.scaledWidth(),
+            this.scaledHeight()
+        )
+
+        this.last = {x: canvasX, y: canvasY}
+    }
+
     scaledWidth() {
         return this.scale * this.width
     }
@@ -113,6 +126,7 @@ class Sprite extends Canvas {
     scaledHeight() {
         return this.scale * this.height
     }
+
 }
 
 module.exports = Sprite

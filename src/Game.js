@@ -1,8 +1,6 @@
-import Style from './Style/canvas.css'
 import Grid from "./Grid"
-import Link from "./Sprite/Link"
+import Luigi from "./Sprite/Luigi"
 import Board from "./Board"
-import Utils from "./Helper/Utils"
 
 /**
  * Game Manager
@@ -11,36 +9,34 @@ class Game {
 
     constructor() {
 
-        let sprites = []
-        sprites.push(new Link())
-
-        // random world
-        let grid = new Grid(
-            Math.trunc(Utils.randomIntFromRange(200, 1000) / 50) * 50,
-            Math.trunc(Utils.randomIntFromRange(200, 600) / 50) * 50,
-            50
-        )
-
-        this.board = new Board(grid, sprites)
-        this.board.animate()
+        let sprite  = new Luigi()
+        let grid    = new Grid(10, 10, 50, sprite)
+        this.board  = new Board(grid, sprite)
     }
 }
 
+// create canvas
 var game = new Game()
 
+// Generic events
 addEventListener('resize', (event) => {
-    game.board.canvas.width  = innerWidth
-    game.board.canvas.height = innerHeight
+    game.board.grid.canvas.width  = innerWidth
+    game.board.grid.canvas.height = innerHeight
+
 })
 
 addEventListener('mousemove', function(event) {
-    game.board.mouse.x = event.clientX
-    game.board.mouse.y = event.clientY
+    game.board.grid.mouse.x = event.clientX
+    game.board.grid.mouse.y = event.clientY
 })
 
-addEventListener('click', function(event) {
-    game.board.mouse.x = event.clientX
-    game.board.mouse.y = event.clientY
+addEventListener('mousedown', function() {
+    game.board.grid.mouse.down = true
+    game.board.grid.listen()
+})
+
+addEventListener('mouseup', function() {
+    game.board.grid.mouse.down = false
 })
 
 addEventListener('keydown', (event) => {

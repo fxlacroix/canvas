@@ -1,40 +1,26 @@
+import Multi from "../Generic/Multi";
 import Sprite from '../Sprite'
 
-class Luigi extends Sprite {
+class Luigi extends Multi.inherit(Sprite) {
 
     constructor() {
 
         super()
 
-        this.x               = 0
-        this.y               = 0
+        this.img.src        = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png'
+        this.cycleLoop      = [0, 1, 0, 2]
+        this.scale          = 2
+        this.width          = 16
+        this.height         = 18
+        this.facingDown     = 0
+        this.facingUp       = 1
+        this.facingLeft     = 2
+        this.facingRight    = 3
 
-        this.scale           = 2
-        this.width           = 16
-        this.height          = 18
-        this.cycleLoop       = [0, 1, 0, 2]
-        this.facingDown      = 0
-        this.facingUp        = 1
-        this.facingLeft      = 2
-        this.facingRight     = 3
-        this.frameLimit      = 12
-        this.frameCount      = 0
-        this.loopIndex       = 0
-        this.movementSpeed   = 5
-        this.hasMoved        = false
-        this.direction       = this.facingDown
-        this.defaultDirection= this.facingDown
-        this.scaledWidth     = this.scale * this.width
-        this.scaledHeight    = this.scale * this.height
-        this.src             = 'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png'
-        this.img.src            = this.src
+        this.defaultDirection = this.facingDown
+        this.direction        = this.defaultDirection
 
-        // how to extract game control
-        this.keyLeft         = 'ArrowLeft'
-        this.keyRight        = 'ArrowRight'
-        this.keyUp           = 'ArrowUp'
-        this.keyDown         = 'ArrowDown'
-
+        this.speed = 1
     }
 }
 

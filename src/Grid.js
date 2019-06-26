@@ -1,67 +1,107 @@
+import Multi from "./Generic/Multi";
 import Canvas from "./Generic/Canvas"
+import Mouse from "./Generic/Mouse"
+import Utils from "./Generic/Utils"
+import MouseListener from "./Listener/MouseListener"
 
 /**
  * Grid component
  */
-class Grid extends Canvas{
+class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
 
-    constructor(width, height, scale){
+    constructor(x, y, scale, sprite){
 
         super()
 
-        this.width  = width
-        this.height = height
-        this.scale  = scale
-        this.matrix = []
+        this.sprite        = sprite
+        this.x              = x
+        this.y              = y
+        this.width          = x * scale
+        this.height         = y * scale
+        this.scale          = scale
+        this.matrix         = []
+        this.blocks         = []
+        this.path           = null
 
-        for(let i=0; i < height / scale; i ++){
+        for(let i=0; i < x; i ++){
             this.matrix[i] = []
-            for(let j=0;j < width / scale; j++){
-                this.matrix[i][j] = 0;
+            for(let j=0;j < y; j++){
+
+                if((i!=0 && j!=0) && ! Utils.randomIntFromRange(0, 2)){
+                    this.matrix[i][j] = 1
+                    this.blocks.push({x:i, y:j})
+                } else {
+                    this.matrix[i][j] = 0
+                }
             }
         }
+        this.init()
     }
 
     detectGridCell(item){
 
-        let x = Math.ceil((item.x) / this.scale)
-        let y = Math.ceil((item.y) / this.scale)
+        let x = Math.floor((item.x + item.width)  / this.scale)
+        let y = Math.floor((item.y + item.height) / this.scale)
 
         return {x: x, y: y}
     }
 
-    hightlightSquare(item){
 
-        let cell = this.detectGridCell(item)
-        this.colorCell(cell)
+    listen() {
+
+        if(this.listenMouse(this, this.mouse)){
+            console.clear();
+            return true
+        }
+        return false
     }
 
-    draw(){
 
-        this.drawGrid(this.width, this.height, this.scale)
+    init(){
+
+        for (let x = 0; x <= this.width; x += this.scale) {
+            this.c.moveTo(x, 0);
+            this.c.lineTo(0 + x, 0 + this.height);
+        }
+
+        for (let y = 0; y <= this.height; y += this.scale) {
+            this.c.moveTo(0, 0 + y);
+            this.c.lineTo(0 + this.width, 0 + y);
+        }
+
+        this.c.stroke()
+
+        this.blocks.forEach(function(cell){
+            this.colorCell(cell)
+        }.bind(this))
+
+        this.sprite.draw(this)
+
+
+    }
+
+    draw(grid) {
+
+        for (let x = 0; x <= grid.width; x += grid.scale) {
+            grid.c.moveTo(x, 0);
+            grid.c.lineTo(0 + x, 0 + grid.height);
+        }
+
+        for (let y = 0; y <= grid.height; y += grid.scale) {
+            grid.c.moveTo(0, 0 + y);
+            grid.c.lineTo(0 + grid.width, 0 + y);
+        }
+
+        grid.c.stroke()
     }
 
     colorCell(cell){
 
-        this.c.fillStyle = "#FF0000";
         this.c.fillRect(cell.x * this.scale, cell.y * this.scale, this.scale, this.scale);
         this.c.stroke();
     }
 
-    drawGrid(bw, bh, p) {
 
-        for (var x = 0; x <= bw; x += p) {
-            this.c.moveTo(x + p, p);
-            this.c.lineTo(x + p, bh + p);
-        }
-
-        for (var x = 0; x <= bh; x += p) {
-            this.c.moveTo(p, x + p);
-            this.c.lineTo(bw + p, x + p);
-        }
-        this.c.strokeStyle = "black";
-        this.c.stroke();
-    }
 }
 
 module.exports = Grid

@@ -12,7 +12,9 @@ class Canvas{
 
         // context
         this.c              = this.canvas.getContext('2d')
-        this.c.font         = "30px Arial"
+        this.c.font         = "20px Arial"
+        this.c.strokeStyle  = "black";
+
     }
 }
 
