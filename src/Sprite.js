@@ -61,8 +61,6 @@ class Sprite extends Canvas{
             }
 
             // delete, draw grid, draw sprite
-            this.delete(grid)
-            grid.draw(grid)
             this.drawReal(grid)
 
         } else {

@@ -58,9 +58,21 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
             this.computer.isMoving  = true
         }
 
+        if(this.sprite.isMoving) {
+            this.sprite.delete(this)
+        }
+        if(this.computer.isMoving) {
+            this.computer.delete(this)
+        }
 
-        this.sprite.move(this)
-        this.computer.move(this)
+        this.draw(this)
+
+        if(this.sprite.isMoving) {
+            this.sprite.move(this)
+        }
+        if(this.computer.isMoving) {
+            this.computer.move(this)
+        }
 
         requestAnimationFrame(this.listen.bind(this))
     }
@@ -89,19 +101,19 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
         this.listen()
     }
 
-    draw(grid) {
+    draw() {
 
-        for (let x = 0; x <= grid.width; x += grid.scale) {
-            grid.c.moveTo(x, 0);
-            grid.c.lineTo(0 + x, 0 + grid.height);
+        for (let x = 0; x <= this.width; x += this.scale) {
+            this.c.moveTo(x, 0);
+            this.c.lineTo(0 + x, 0 + this.height);
         }
 
-        for (let y = 0; y <= grid.height; y += grid.scale) {
-            grid.c.moveTo(0, 0 + y);
-            grid.c.lineTo(0 + grid.width, 0 + y);
+        for (let y = 0; y <= this.height; y += this.scale) {
+            this.c.moveTo(0, 0 + y);
+            this.c.lineTo(0 + this.width, 0 + y);
         }
 
-        grid.c.stroke()
+        this.c.stroke()
     }
 
     colorCell(cell){

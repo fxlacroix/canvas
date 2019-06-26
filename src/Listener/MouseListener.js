@@ -19,6 +19,7 @@ class MouseListener {
                 let cell1 = grid.detectGridCell(sprite)
                 let cell2 = grid.detectGridCell(mouse)
 
+                sprite.isMoving = true
                 sprite.path     = Utils.findPath(grid.matrix, Object.values(cell1), Object.values(cell2))
                 sprite.pathReal = this.calculatePathReal(grid)
 
