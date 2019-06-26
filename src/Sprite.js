@@ -21,6 +21,10 @@ class Sprite extends Canvas{
         this.loopIndex  = 0
 
         this.isMoving   = false
+
+        this.path = []
+        this.pathReal = []
+
         this.logger     = new Logger()
 
     }
@@ -61,12 +65,9 @@ class Sprite extends Canvas{
             grid.draw(grid)
             this.drawReal(grid)
 
-            window.requestAnimationFrame(function(){
-                this.move(grid)
-            }.bind(this))
-
         } else {
-            this.path = null
+            this.path       = []
+            this.isMoving   = false
         }
     }
 

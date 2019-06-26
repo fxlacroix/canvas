@@ -9,11 +9,12 @@ import MouseListener from "./Listener/MouseListener"
  */
 class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
 
-    constructor(x, y, scale, sprite){
+    constructor(x, y, scale, sprite, computer){
 
         super()
 
-        this.sprite        = sprite
+        this.sprite         = sprite
+        this.computer       = computer
         this.x              = x
         this.y              = y
         this.width          = x * scale
@@ -27,7 +28,7 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
             this.matrix[i] = []
             for(let j=0;j < y; j++){
 
-                if((i!=0 && j!=0) && ! Utils.randomIntFromRange(0, 2)){
+                if(i!=0 && j!=0 && i!=14 && j!=9  && ! Utils.randomIntFromRange(0, 2)){
                     this.matrix[i][j] = 1
                     this.blocks.push({x:i, y:j})
                 } else {
@@ -49,11 +50,19 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
 
     listen() {
 
-        if(this.listenMouse(this, this.mouse)){
-            console.clear();
-            return true
+        this.listenMouse(this, this.mouse)
+
+        if(! this.computer.isMoving) {
+            this.computer.path      = Utils.findPath(this.matrix, [this.computer.x, this.computer.y], [this.sprite.x, this.sprite.y])
+            this.computer.pathReal  = this.calculatePathReal(this)
+            this.computer.isMoving  = true
         }
-        return false
+
+
+        this.sprite.move(this)
+        this.computer.move(this)
+
+        requestAnimationFrame(this.listen.bind(this))
     }
 
 
@@ -76,8 +85,8 @@ class Grid extends Multi.inherit(Canvas, MouseListener, Mouse){
         }.bind(this))
 
         this.sprite.draw(this)
-
-
+        this.computer.draw(this)
+        this.listen()
     }
 
     draw(grid) {
