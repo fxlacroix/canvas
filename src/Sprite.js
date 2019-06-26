@@ -20,7 +20,6 @@ class Sprite extends Canvas{
         this.frameCount = 0
         this.loopIndex  = 0
 
-        this.scale      = 2
         this.isMoving   = false
         this.logger     = new Logger()
 
@@ -44,6 +43,7 @@ class Sprite extends Canvas{
 
         if(this.pathReal.length) {
 
+            // console.log(this.path)
             this.logger.show(grid, this)
 
             let cell = this.pathReal.shift()
@@ -56,8 +56,11 @@ class Sprite extends Canvas{
                 this.loopIndex = 0
             }
 
+            // delete, draw grid, draw sprite
+            this.delete(grid)
             grid.draw(grid)
             this.drawReal(grid)
+
             window.requestAnimationFrame(function(){
                 this.move(grid)
             }.bind(this))
@@ -90,9 +93,12 @@ class Sprite extends Canvas{
         )
     }
 
-    drawReal(grid) {
+    delete() {
 
         this.c.clearRect(this.last.x, this.last.y, this.scaledWidth(), this.scaledHeight())
+    }
+
+    drawReal(grid) {
 
         // center
         let canvasX = this.x + (grid.scale - this.width) / 4
@@ -111,8 +117,6 @@ class Sprite extends Canvas{
         )
 
         this.last = {x: canvasX, y: canvasY}
-
-
     }
 
     scaledWidth() {

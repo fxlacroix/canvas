@@ -4,11 +4,7 @@ import Utils from "../Generic/Utils"
 /**
  * default sprite
  */
-class MouseListener extends Canvas {
-
-    constructor() {
-        super();
-    }
+class MouseListener {
 
     listenMouse(grid, mouse, callback){
 
@@ -22,8 +18,10 @@ class MouseListener extends Canvas {
                 // put that is a callback function
                 let cell1 = grid.detectGridCell(sprite)
                 let cell2 = grid.detectGridCell(mouse)
-                sprite.path=Utils.findPath(grid.matrix, Object.values(cell1), Object.values(cell2))
+
+                sprite.path     = Utils.findPath(grid.matrix, Object.values(cell1), Object.values(cell2))
                 sprite.pathReal = this.calculatePathReal(grid)
+
                 sprite.move(grid)
             }
 
@@ -32,7 +30,6 @@ class MouseListener extends Canvas {
 
         return false
     }
-
 
     calculatePathReal(grid) {
 
@@ -47,7 +44,7 @@ class MouseListener extends Canvas {
 
             for(let key in sprite.path) {
 
-                for (let i = 0; i + sprite.speed < grid.scale ; i++) {
+                for (let i = 0; i + sprite.speed < grid.scale ; i += sprite.speed) {
 
                     if (xFrom < sprite.path[key][0] * grid.scale) {
                         xFrom += i
@@ -65,6 +62,7 @@ class MouseListener extends Canvas {
                         yFrom -= i
                         direction = sprite.facingUp
                     }
+
                     let cell = {x: xFrom, y: yFrom, direction: direction}
 
                     if(duplicates.indexOf(cell.x + "-" + cell.y) == -1){

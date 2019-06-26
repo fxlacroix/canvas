@@ -20,8 +20,8 @@ var game = new Game()
 
 // Generic events
 addEventListener('resize', (event) => {
-    game.board.canvas.width  = innerWidth
-    game.board.canvas.height = innerHeight
+    game.board.grid.canvas.width  = innerWidth
+    game.board.grid.canvas.height = innerHeight
 
 })
 

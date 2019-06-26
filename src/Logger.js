@@ -16,13 +16,18 @@ class Logger extends Canvas {
         let messages = [
             "Sprite",
             "       position: " + sprite.x + "/" + sprite.y,
+            "       direction " + sprite.direction,
             "       grid: " + cellSprite.x + "/" + cellSprite.y
         ]
         //
         var msgSpacing = 30;
+
+        this.c.clearRect(grid.width, grid.scale, grid.width + grid.scale, grid.scale+ grid.height)
+
         messages.forEach(function(msg){
-            //this.c.fillText(msg, grid.width + grid.scale, grid.scale + msgSpacing)
-            console.log(msg)
+
+            this.c.fillText(msg, grid.width + grid.scale, grid.scale + msgSpacing)
+            //console.log(msg)
             msgSpacing += 30
         }.bind(this))
         //
