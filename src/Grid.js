@@ -86,6 +86,7 @@ class Grid extends Multi.inherit(Canvas, Mouse){
     listenMouse(){
 
         if(this.mouse.down){
+
             if(this.mouse.x  < this.width && this.mouse.y < this.height){
                 // put that is a callback function
                 let cellMouse    = this.detectGridCell(this.mouse)
