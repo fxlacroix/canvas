@@ -64,16 +64,21 @@ class Grid extends Multi.inherit(Canvas, Mouse){
         this.listenMouse()
 
         // @todo: draw only the concerned part
-        this.draw()
 
         this.sprite.delete(this.scale)
-        //this.sprite.update()
+        this.computer.delete(this.scale)
+        this.draw()
+
         this.sprite.move(this)
         this.sprite.draw(this)
 
-        this.computer.delete(this.scale)
-        //this.sprite.update()
+        this.computer.move(this)
         this.computer.draw(this)
+
+        if(this.sprite.detectCollision(this.computer)){
+            alert("you loose :( !!")
+            return
+        }
 
         requestAnimationFrame(this.listen.bind(this))
     }
@@ -83,39 +88,27 @@ class Grid extends Multi.inherit(Canvas, Mouse){
         if(this.mouse.down){
             if(this.mouse.x  < this.width && this.mouse.y < this.height){
                 // put that is a callback function
-                let cell1 = this.detectGridCell(this.sprite)
-                let cell2 = this.detectGridCell(this.mouse)
+                let cellMouse    = this.detectGridCell(this.mouse)
+                let cellUser     = this.detectGridCell(this.sprite)
+                let cellComputer = this.detectGridCell(this.computer)
 
-                this.sprite.isMoving = true
-                this.sprite.path     = Utils.findPath(this.matrix, Object.values(cell1), Object.values(cell2))
-                this.sprite.pathReal = this.calculatePathReal()
+                this.sprite.path     = Utils.findPath(this.matrix, Object.values(cellUser), Object.values(cellMouse))
+                this.sprite.pathReal = this.calculatePathReal(this.sprite)
 
+                //if(Utils.randomIntFromRange(0, 2)) {
+                    this.computer.path = Utils.findPath(this.matrix, Object.values(cellComputer), Object.values(cellMouse))
+                    this.computer.pathReal = this.calculatePathReal(this.computer)
+                //}
             }
         }
     }
 
-    draw(){
-
-        for (let x = 0; x <= this.width; x += this.scale) {
-            this.c.moveTo(x, 0);
-            this.c.lineTo(0 + x, 0 + this.height);
-        }
-
-        for (let y = 0; y <= this.height; y += this.scale) {
-            this.c.moveTo(0, 0 + y);
-            this.c.lineTo(0 + this.width, 0 + y);
-        }
-
-        this.c.stroke()
-    }
-
-    calculatePathReal() {
+    calculatePathReal(sprite) {
 
         let stops       = []
         let duplicates  = []
-        let sprite      = this.sprite
-        let xFrom       = this.sprite.x
-        let yFrom       = this.sprite.y
+        let xFrom       = sprite.x
+        let yFrom       = sprite.y
         let direction
 
         if(sprite.path.length) {
@@ -157,6 +150,21 @@ class Grid extends Multi.inherit(Canvas, Mouse){
             return stops
         }
         return []
+    }
+
+    draw(){
+
+        for (let x = 0; x <= this.width; x += this.scale) {
+            this.c.moveTo(x, 0);
+            this.c.lineTo(0 + x, 0 + this.height);
+        }
+
+        for (let y = 0; y <= this.height; y += this.scale) {
+            this.c.moveTo(0, 0 + y);
+            this.c.lineTo(0 + this.width, 0 + y);
+        }
+
+        this.c.stroke()
     }
 
     detectGridCell(item){

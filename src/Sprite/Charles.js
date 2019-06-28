@@ -1,6 +1,6 @@
 import Multi    from "../Generic/Multi";
 import Sprite   from "../Sprite"
-import src      from "../Public/Image/charles.png"
+import src      from "../Public/Image/charles2.png"
 
 class Charles extends Sprite {
 

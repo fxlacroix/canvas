@@ -65,8 +65,18 @@ class Sprite extends Canvas{
 
         } else {
             this.path       = []
-            this.isMoving   = false
         }
+    }
+
+    detectCollision(item) {
+
+        if((this.x <= item.x && this.x + this.width >= item.x && this.y <= item.y && this.y + this.height >= item.y)
+          ||
+          (this.x >= item.x && this.x - this.width <= item.x && this.y >= item.y && this.y - this.height <= item.y))
+        {
+            return true
+        }
+        return false
     }
 
     scaledWidth() {
