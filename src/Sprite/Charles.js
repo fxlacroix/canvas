@@ -2,15 +2,11 @@ import Multi    from "../Generic/Multi";
 import Sprite   from "../Sprite"
 import src      from "../Public/Image/charles.png"
 
-class Charles extends Multi.inherit(Sprite) {
+class Charles extends Sprite {
 
-    constructor() {
+    constructor(x, y) {
 
-        super()
-
-
-        this.x          = 14
-        this.y          = 9
+        super(x, y)
 
         this.img.src        = src
         this.cycleLoop      = [0, 1, 0, 2]
@@ -29,6 +25,12 @@ class Charles extends Multi.inherit(Sprite) {
 
         this.isMoving = 0
 
+        // not dynamic
+        this.xGrid      = 15
+        this.yGrid      = 11
+        this.x          = 750
+        this.y          = 550
+        this.last       = {x: this.x, y: this.y}
     }
 }
 

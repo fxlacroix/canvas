@@ -7,14 +7,14 @@ class Canvas{
 
         // canvas
         this.canvas         = document.querySelector('canvas')
-        this.canvas.width   = innerWidth
-        this.canvas.height  = innerHeight
+
+        // fixed canvas size for performance
+        this.canvas.width   = 800
+        this.canvas.height  = 600
 
         // context
         this.c              = this.canvas.getContext('2d')
         this.c.font         = "20px Arial"
-        this.c.strokeStyle  = "black";
-
     }
 }
 

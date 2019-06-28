@@ -2,11 +2,11 @@ import Multi    from "../Generic/Multi";
 import Sprite   from "../Sprite"
 import src      from "../Public/Image/luigi.png"
 
-class Luigi extends Multi.inherit(Sprite) {
+class Luigi extends Sprite {
 
-    constructor() {
+    constructor(x, y) {
 
-        super()
+        super(x, y)
 
         this.img.src        = src //'https://opengameart.org/sites/default/files/Green-Cap-Character-16x18.png'
         this.cycleLoop      = [0, 1, 0, 2]
@@ -22,6 +22,7 @@ class Luigi extends Multi.inherit(Sprite) {
         this.direction        = this.defaultDirection
 
         this.speed = 1
+
     }
 }
 

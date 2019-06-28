@@ -1,47 +1,35 @@
 import Grid     from "./Grid"
 import Luigi    from "./Sprite/Luigi"
 import Charles  from "./Sprite/Charles"
+import Styles   from "./Public/css/style.css"
 
 /**
- * Game Manager
+ * Game
  */
-class Game {
+new class Game {
 
     constructor() {
 
-        let sprite   = new Luigi()
-        let computer = new Charles()
-        this.grid    = new Grid(15, 10, 50, sprite, computer)
+        let sprite   = new Luigi(0, 0)
+        let computer = new Charles(15, 11)
+        this.grid    = new Grid(16, 12, 50, sprite, computer)
+
+        this.addEvents()
+    }
+
+    addEvents() {
+
+        addEventListener('mousemove', function(event) {
+            this.grid.mouse.x = event.clientX
+            this.grid.mouse.y = event.clientY
+        }.bind(this))
+
+        addEventListener('mousedown', function() {
+            this.grid.mouse.down = true
+        }.bind(this))
+
+        addEventListener('mouseup', function() {
+            this.grid.mouse.down = false
+        }.bind(this))
     }
 }
-
-// create canvas
-var game = new Game()
-
-// Generic events
-addEventListener('resize', (event) => {
-    game.grid.canvas.width  = innerWidth
-    game.grid.canvas.height = innerHeight
-
-})
-
-addEventListener('mousemove', function(event) {
-    game.grid.mouse.x = event.clientX
-    game.grid.mouse.y = event.clientY
-})
-
-addEventListener('mousedown', function() {
-    game.grid.mouse.down = true
-})
-
-addEventListener('mouseup', function() {
-    game.grid.mouse.down = false
-})
-
-addEventListener('keydown', (event) => {
-    game.keyPresses[event.key] = true
-})
-
-addEventListener('keyup', (event) => {
-    delete game.keyPresses[event.key]
-})
