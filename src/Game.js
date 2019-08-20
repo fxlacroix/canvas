@@ -1,7 +1,7 @@
 import Grid     from "./Grid"
 import Luigi    from "./Sprite/Luigi"
 import Charles  from "./Sprite/Charles"
-import Styles   from "./Public/css/style.css"
+import Styles   from "./Public/css/style.scss"
 
 /**
  * Game

@@ -22,6 +22,7 @@ class Charles extends Sprite {
         this.direction        = this.defaultDirection
 
         this.speed = 1
+        this.life  = 10
 
         this.isMoving = 0
 

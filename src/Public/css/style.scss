@@ -1,0 +1,27 @@
+body{
+    background: #efefef;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+canvas{
+    background: white;
+}
+
+.game-container{
+
+    position: absolute;
+    right: 55%;
+    top: 10px;
+}
+
+.sprite{
+    border: solid 1px blue;
+    width: 50%;
+    height: 200px;
+    background-image: url('./../Image/luigi.png');
+    background-size: 50% auto;
+    width: 20px;
+    height: 20px;
+}

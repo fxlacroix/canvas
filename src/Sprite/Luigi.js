@@ -21,7 +21,8 @@ class Luigi extends Sprite {
         this.defaultDirection = this.facingDown
         this.direction        = this.defaultDirection
 
-        this.speed = 2
+        this.speed = 1
+        this.life  = 10
 
     }
 }
