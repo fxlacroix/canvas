@@ -7,21 +7,36 @@ body{
 
 canvas{
     background: white;
+    float: left;
 }
 
 .game-container{
 
-    position: absolute;
-    right: 55%;
-    top: 10px;
+    float: left;
+    display: block;
+    margin-left: 10px;
 }
 
 .sprite{
-    border: solid 1px blue;
-    width: 50%;
-    height: 200px;
-    background-image: url('./../Image/luigi.png');
-    background-size: 50% auto;
-    width: 20px;
-    height: 20px;
+    padding-left: 50px;
+    margin-bottom: 10px;
+}
+
+.luigi{
+    background: url('./../Image/picto-luigi.png');
+    background-repeat: no-repeat;
+}
+
+.charles{
+    background-image: url('./../Image/picto-charles.png');
+    background-repeat: no-repeat;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+th, td{
+    border: 1px solid black;
+    padding: 10px;
 }
